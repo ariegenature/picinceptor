@@ -1,0 +1,13 @@
+[watcher:picinceptor]
+cmd = picinceptor --chaussette-fd $(circus.sockets.picinceptor)
+use_sockets = True
+numprocesses = 3
+copy_env = True
+virtualenv = /opt/picinceptor
+
+[socket:picinceptor]
+host = 0.0.0.0
+port = 5000
+
+[env:picinceptor]
+PICINCEPTOR_CONF = /opt/picinceptor/etc/picinceptor/picinceptor.ini
