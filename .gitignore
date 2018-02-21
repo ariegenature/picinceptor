@@ -105,3 +105,6 @@ log.html
 report.html
 output.xml
 selenium-*.png
+
+# JS stuff
+picinceptor/picinceptorjs/node_modules/
