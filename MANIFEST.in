@@ -1,4 +1,31 @@
 include picinceptor/VERSION
 include *.rst
 include .coveragerc
+include picinceptor/picinceptorjs/.babelrc
+include picinceptor/picinceptorjs/.editorconfig
+include picinceptor/picinceptorjs/.eslintignore
+include picinceptor/picinceptorjs/.eslintrc.js
+include picinceptor/picinceptorjs/.gitignore
+include picinceptor/picinceptorjs/.postcssrc.js
+include picinceptor/picinceptorjs/README.md
+include picinceptor/picinceptorjs/index.html
+include picinceptor/picinceptorjs/package.json
+include picinceptor/picinceptorjs/package-lock.json
+include picinceptor/picinceptorjs/build/build.js
+include picinceptor/picinceptorjs/build/check-versions.js
+include picinceptor/picinceptorjs/build/utils.js
+include picinceptor/picinceptorjs/build/vue-loader.conf.js
+include picinceptor/picinceptorjs/build/webpack.base.conf.js
+include picinceptor/picinceptorjs/build/webpack.dev.conf.js
+include picinceptor/picinceptorjs/build/webpack.prod.conf.js
+include picinceptor/picinceptorjs/build/logo.png
+include picinceptor/picinceptorjs/config/dev.env.js
+include picinceptor/picinceptorjs/config/index.js
+include picinceptor/picinceptorjs/config/prod.env.js
+include picinceptor/picinceptorjs/config/test.env.js
+include picinceptor/picinceptorjs/static/.gitkeep
+include picinceptor/picinceptorjs/test/unit/.eslintrc
 recursive-include atests *.robot *.rst *.html *.txt
+recursive-include picinceptor/picinceptorjs/src *.vue *.js *.png
+recursive-include picinceptor/picinceptorjs/test *.js
+prune picinceptor/picinceptorjs/test/unit/coverage
