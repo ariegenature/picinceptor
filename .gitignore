@@ -110,3 +110,6 @@ selenium-*.png
 
 # JS stuff
 picinceptor/picinceptorjs/node_modules/
+
+# Config files
+*.ini
