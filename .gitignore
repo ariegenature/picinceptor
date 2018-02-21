@@ -22,6 +22,8 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+picinceptor/views/contribute/templates/vue/
+picinceptor/views/contribute/templates/static/vue/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
