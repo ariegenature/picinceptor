@@ -7,6 +7,9 @@
       </div>
     </div>
   </div>
+  <b-modal id="modal-form" :active.sync="isFormActive">
+    <p>Modal content.</p>
+  </b-modal>
   </main>
 </template>
 
@@ -17,6 +20,11 @@ export default {
   name: 'ContributePage',
   components: {
     ContributeMap
+  },
+  data () {
+    return {
+      isFormActive: false
+    }
   }
 }
 </script>
@@ -27,5 +35,11 @@ export default {
 }
 #map {
   height: 90%;
+}
+.modal {
+  z-index: 1000 !important;
+}
+.modal-content {
+  background-color: rgba(245, 245, 245, 1);
 }
 </style>
