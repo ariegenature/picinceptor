@@ -43,18 +43,12 @@
         </div>
       </tab-content>
       <tab-content title="Indice de nidification">
-        <div class="columns is-centered">
-          <div class="column is-narrow">
-            <b-field>
-              <b-select placeholder="Sélectionnez un indice" icon="view-list" size="is-small"
-                        expanded v-model="nestingIndex">
-                <option v-for="index in nestingIndices"
-                        :value="index.id"
-                        :key="index.id">
-                    {{ index.name }}
-                </option>
-              </b-select>
-            </b-field>
+        <div class="columns is-multiline is-centered">
+          <div class="column is-half is-narrow" v-for="index in nestingIndices" :key="index.id">
+            <b-radio href="#" size="is-small" v-model="nestingIndex"
+                     :native-value="index.id">
+              <p class="is-size-7">{{ index.name }}</p>
+            </b-radio>
           </div>
         </div>
       </tab-content>
