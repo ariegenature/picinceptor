@@ -2,7 +2,7 @@
 
 import mimetypes
 
-from flask import Blueprint, make_response, render_template
+from flask import Blueprint, current_app, make_response, render_template
 
 
 contribute_bp = Blueprint('contribute', __name__, template_folder='templates',
@@ -11,7 +11,7 @@ contribute_bp = Blueprint('contribute', __name__, template_folder='templates',
 
 @contribute_bp.route('/contribute')
 def index():
-    return render_template('vue/index.html')
+    return render_template('vue/index.html', site_title=current_app.config['SITE_TITLE'])
 
 
 @contribute_bp.route('/contribute/static/<path:fpath>')
