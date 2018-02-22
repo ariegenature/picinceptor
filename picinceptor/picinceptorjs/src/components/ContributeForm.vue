@@ -2,7 +2,8 @@
   <form id="contribute-form" method="POST" accept-charset="UTF-8" v-on:submit.prevent>
     <form-wizard ref="wizard" title="Pics des Pyrénées" subtitle="Nouvelle observation"
                  step-size="xs" next-button-text="Suivant" back-button-text="Retour"
-                 finish-button-text="Terminer" @on-complete="submitForm">
+                 finish-button-text="Terminer" @on-change="handleStepChange"
+                 @on-complete="submitForm">
       <tab-content title="Date">
         <div class="columns is-mobile is-centered">
           <div class="column is-narrow has-text-centered">
@@ -91,8 +92,8 @@
       <tab-content title="Coordonnées">
         <b-field grouped group-multiline>
           <b-field label="Votre prénom" expanded>
-            <b-input expanded id="first-name" v-model="firstName"
-                     autocomplete="given-name"
+            <b-input expanded id="first-name" ref="firstFieldInTab4"
+                     v-model="firstName" autocomplete="given-name"
                      @keyup.native.enter="giveFocusToField('surname')"></b-input>
           </b-field>
           <b-field label="Votre nom" expanded>
@@ -271,10 +272,19 @@ export default {
         field.focus()
       }
     },
+    giveFocusToFirstField (tabIndex) {
+      var firstField = this.$refs[`firstFieldInTab${tabIndex}`]
+      if (firstField && firstField.hasOwnProperty('focus')) {
+        firstField.focus()
+      }
+    },
     habitatChanged () {
       if (this.habitat !== 'Forêt') {
         this.$refs.wizard.nextTab()
       }
+    },
+    handleStepChange (prevIndex, nextIndex) {
+      this.giveFocusToFirstField(nextIndex)
     },
     nextTab () {
       this.$refs.wizard.nextTab()
