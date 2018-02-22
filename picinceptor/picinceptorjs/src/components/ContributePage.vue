@@ -28,7 +28,6 @@ export default {
   },
   methods: {
     showForm (lEv) {
-      console.log(lEv)
       this.isFormActive = true
     }
   }
