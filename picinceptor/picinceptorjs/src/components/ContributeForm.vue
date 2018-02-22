@@ -4,7 +4,7 @@
                  step-size="xs" next-button-text="Suivant" back-button-text="Retour"
                  finish-button-text="Terminer" @on-change="handleStepChange"
                  @on-complete="submitForm">
-      <tab-content title="Date">
+      <tab-content title="Date" :before-change="checkDateNotNull">
         <div class="columns is-mobile is-centered">
           <div class="column is-narrow has-text-centered">
             <b-field>
@@ -15,7 +15,7 @@
           </div>
         </div>
       </tab-content>
-      <tab-content title="Espèce de pic">
+      <tab-content title="Espèce de pic" :before-change="checkWoodpeckerNotNull">
         <div class="columns is-multiline is-centered">
           <div class="column is-one-third has-text-centered" v-for="woodpecker in woodpeckers"
             :item="woodpecker" :key="woodpecker.id">
@@ -43,7 +43,7 @@
           </div>
         </div>
       </tab-content>
-      <tab-content title="Indice de nidification">
+      <tab-content title="Indice de nidification" :before-change="checkIndexNotNull">
         <div class="columns is-multiline is-centered">
           <div class="column is-half is-narrow" v-for="index in nestingIndices" :key="index.id">
             <b-radio href="#" size="is-small" v-model="nestingIndex"
@@ -53,7 +53,7 @@
           </div>
         </div>
       </tab-content>
-      <tab-content title="Habitat observé">
+      <tab-content title="Habitat observé" :before-change="checkHabitatComplete">
         <div class="columns">
           <div class="column is-one-third is-narrow">
             <b-field label="Type d'habitat">
@@ -89,7 +89,7 @@
           </div>
         </div>
       </tab-content>
-      <tab-content title="Coordonnées">
+      <tab-content title="Coordonnées" :before-change="checkContactComplete">
         <b-field grouped group-multiline>
           <b-field label="Votre prénom" expanded>
             <b-input expanded id="first-name" ref="firstFieldInTab4"
@@ -266,6 +266,29 @@ export default {
     }
   },
   methods: {
+    checkContactComplete () {
+      return (this.firstName !== '' && this.firstName !== null &&
+        this.surname !== '' && this.surname !== null &&
+        this.email !== '' && this.email !== null)
+    },
+    checkDateNotNull () {
+      return this.observationDate !== null
+    },
+    checkHabitatComplete () {
+      if (this.habitat === null) {
+        return false
+      }
+      if (this.habitat === 'Forêt' && this.dominant === null) {
+        return false
+      }
+      return true
+    },
+    checkIndexNotNull () {
+      return this.nestingIndex !== null
+    },
+    checkWoodpeckerNotNull () {
+      return this.woodpeckerId !== null
+    },
     giveFocusToField (ref) {
       var field = this.$refs[ref]
       if (field && field.hasOwnProperty('focus')) {
