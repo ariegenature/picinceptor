@@ -3,7 +3,7 @@
   <div id="hero-map" class="hero-body">
     <div id="container-map" class="container is-fluid">
       <div id="map">
-        <contribute-map></contribute-map>
+        <contribute-map @marker-created="showForm"></contribute-map>
       </div>
     </div>
   </div>
@@ -24,6 +24,12 @@ export default {
   data () {
     return {
       isFormActive: false
+    }
+  },
+  methods: {
+    showForm (lEv) {
+      console.log(lEv)
+      this.isFormActive = true
     }
   }
 }

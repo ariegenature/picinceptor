@@ -1,5 +1,6 @@
 <template>
-  <v-map ref="map" :zoom="zoom" :center="center">
+  <v-map ref="map" :zoom="zoom" :center="center"
+         @l-draw-created="emitMarkerCreated">
     <v-tilelayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                  attribution="OpenStreetMap contributors"></v-tilelayer>
     <leaflet-draw :marker="true" :polyline="false" :polygon="false" :rectangle="false"
@@ -19,6 +20,11 @@ export default {
     return {
       center: [42.857846, 0.626220],
       zoom: 8
+    }
+  },
+  methods: {
+    emitMarkerCreated (ev) {
+      this.$emit('marker-created', ev)
     }
   }
 }
