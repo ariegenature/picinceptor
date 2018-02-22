@@ -8,17 +8,19 @@
     </div>
   </div>
   <b-modal id="modal-form" :active.sync="isFormActive">
-    <p>Modal content.</p>
+    <contribute-form @form-complete="closeForm"></contribute-form>
   </b-modal>
   </main>
 </template>
 
 <script>
+import ContributeForm from './ContributeForm'
 import ContributeMap from './ContributeMap'
 
 export default {
   name: 'ContributePage',
   components: {
+    ContributeForm,
     ContributeMap
   },
   data () {
@@ -29,6 +31,9 @@ export default {
   methods: {
     showForm (lEv) {
       this.isFormActive = true
+    },
+    closeForm (ev) {
+      this.isFormActive = false
     }
   }
 }
