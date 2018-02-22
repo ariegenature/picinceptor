@@ -92,19 +92,22 @@
         <b-field grouped group-multiline>
           <b-field label="Votre prénom" expanded>
             <b-input expanded id="first-name" v-model="firstName"
-                     autocomplete="given-name"></b-input>
+                     autocomplete="given-name"
+                     @keyup.native.enter="giveFocusToField('surname')"></b-input>
           </b-field>
           <b-field label="Votre nom" expanded>
-            <b-input expanded id="surname" v-model="surname"
-                     autocomplete="family-name"></b-input>
+            <b-input expanded id="surname" ref="surname" v-model="surname"
+                     autocomplete="family-name"
+                     @keyup.native.enter="giveFocusToField('email')"></b-input>
           </b-field>
         </b-field>
         <b-field label="Votre adresse électronique" expanded>
-          <b-input type="email" id="email" placeholder="prenom.nom@example.org"
-                   autocomplete="email" v-model="email"></b-input>
+          <b-input type="email" id="email" ref="email" placeholder="prenom.nom@example.org"
+                   autocomplete="email" v-model="email"
+                   @keyup.native.enter="giveFocusToField('school')"></b-input>
         </b-field>
         <b-field label="Établissement (si scolaire)" expanded>
-          <b-input autocomplete="organization" v-model="school"></b-input>
+          <b-input ref="school" autocomplete="organization" v-model="school"></b-input>
         </b-field>
       </tab-content>
     </form-wizard>
@@ -262,6 +265,12 @@ export default {
     }
   },
   methods: {
+    giveFocusToField (ref) {
+      var field = this.$refs[ref]
+      if (field && field.hasOwnProperty('focus')) {
+        field.focus()
+      }
+    },
     habitatChanged () {
       if (this.habitat !== 'Forêt') {
         this.$refs.wizard.nextTab()
