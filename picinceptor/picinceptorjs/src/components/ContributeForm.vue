@@ -2,7 +2,7 @@
   <form id="contribute-form" method="POST" accept-charset="UTF-8" v-on:submit.prevent>
     <form-wizard ref="wizard" title="Pics des Pyrénées" subtitle="Nouvelle observation"
                  step-size="xs" next-button-text="Suivant" back-button-text="Retour"
-                 finish-button-text="Terminer">
+                 finish-button-text="Terminer" @on-complete="submitForm">
       <tab-content title="Date">
         <p>Choix de la date.</p>
       </tab-content>
@@ -24,6 +24,11 @@
 
 <script>
 export default {
-  name: 'ContributeForm'
+  name: 'ContributeForm',
+  methods: {
+    submitForm () {
+      this.$emit('form-complete')
+    }
+  }
 }
 </script>

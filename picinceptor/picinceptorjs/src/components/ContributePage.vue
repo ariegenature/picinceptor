@@ -8,7 +8,7 @@
     </div>
   </div>
   <b-modal id="modal-form" :active.sync="isFormActive">
-    <contribute-form></contribute-form>
+    <contribute-form @form-complete="closeForm"></contribute-form>
   </b-modal>
   </main>
 </template>
@@ -32,6 +32,9 @@ export default {
     showForm (lEv) {
       console.log(lEv)
       this.isFormActive = true
+    },
+    closeForm (ev) {
+      this.isFormActive = false
     }
   }
 }
