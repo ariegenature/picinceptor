@@ -59,7 +59,40 @@
         </div>
       </tab-content>
       <tab-content title="Habitat observé">
-        <p>Description de l'habitat observé.</p>
+        <div class="columns">
+          <div class="column is-one-third is-narrow">
+            <b-field label="Type d'habitat">
+              <b-select placeholder="Sélectionnez un habitat" icon="view-list"
+                        size="is-small" expanded v-model="habitat">
+                <option v-for="hab in habitats" :value="hab" :key="hab">
+                    {{ hab }}
+                </option>
+              </b-select>
+            </b-field>
+          </div>
+          <div class="column is-one-third is-narrow" v-if="habitat === 'Forêt'">
+            <b-field label="Espèce dominante">
+              <b-select placeholder="Sélectionnez une espèce d'arbre" icon="view-list"
+                        size="is-small" expanded v-model="dominant">
+                <option v-for="treeType in dominantSpecies" :value="treeType" :key="treeType">
+                    {{ treeType }}
+                </option>
+              </b-select>
+            </b-field>
+          </div>
+          <div class="column is-one-third is-narrow" v-if="habitat === 'Forêt'">
+            <div class="field">
+              <b-switch  size="is-small" v-model="hasDeadTrees">
+                {{ deadTreesStr }}
+              </b-switch>
+            </div>
+            <div class="field">
+              <b-switch  size="is-small" v-model="hasConifer">
+                {{ coniferStr }}
+              </b-switch>
+            </div>
+          </div>
+        </div>
       </tab-content>
       <tab-content title="Coordonnées">
         <p>Coordonnées de l'observateur.</p>
@@ -187,9 +220,31 @@ export default {
           name: 'Oiseau vu hors période de nidification, août à janvier'
         }
       ],
+      habitats: [
+        'Bosquet',
+        'Haie',
+        'Forêt'
+      ],
+      dominantSpecies: [
+        'Hêtre',
+        'Chêne',
+        'Conifères'
+      ],
       observationDate: new Date(),
       woodpeckerId: null,
-      nestingIndex: null
+      nestingIndex: null,
+      habitat: null,
+      dominant: null,
+      hasDeadTrees: false,
+      hasConifer: false
+    }
+  },
+  computed: {
+    deadTreesStr () {
+      return this.hasDeadTrees ? 'Arbres morts au sol' : "Pas d'arbre mort au sol"
+    },
+    coniferStr () {
+      return this.hasConifer ? 'Présence de conifères' : 'Pas de conifère'
     }
   },
   methods: {
