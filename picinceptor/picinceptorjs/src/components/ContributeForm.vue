@@ -95,7 +95,23 @@
         </div>
       </tab-content>
       <tab-content title="Coordonnées">
-        <p>Coordonnées de l'observateur.</p>
+        <b-field grouped group-multiline>
+          <b-field label="Votre prénom" expanded>
+            <b-input expanded id="first-name" v-model="firstName"
+                     autocomplete="given-name"></b-input>
+          </b-field>
+          <b-field label="Votre nom" expanded>
+            <b-input expanded id="surname" v-model="surname"
+                     autocomplete="family-name"></b-input>
+          </b-field>
+        </b-field>
+        <b-field label="Votre adresse électronique" expanded>
+          <b-input type="email" id="email" placeholder="prenom.nom@example.org"
+                   autocomplete="email" v-model="email"></b-input>
+        </b-field>
+        <b-field label="Établissement (si scolaire)" expanded>
+          <b-input autocomplete="organization" v-model="school"></b-input>
+        </b-field>
       </tab-content>
     </form-wizard>
   </form>
@@ -236,7 +252,11 @@ export default {
       habitat: null,
       dominant: null,
       hasDeadTrees: false,
-      hasConifer: false
+      hasConifer: false,
+      firstName: '',
+      surname: '',
+      email: '',
+      school: ''
     }
   },
   computed: {
