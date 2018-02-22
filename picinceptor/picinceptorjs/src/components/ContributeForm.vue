@@ -9,7 +9,7 @@
             <b-field>
               <b-datepicker inline size="is-small" v-model="observationDate"
                             :month-names="monthNames" :day-names="dayNames"
-                            :first-day-of-week="1"></b-datepicker>
+                            :first-day-of-week="1" @input="nextTab"></b-datepicker>
             </b-field>
           </div>
         </div>
@@ -19,7 +19,7 @@
           <div class="column is-one-third has-text-centered" v-for="woodpecker in woodpeckers"
             :item="woodpecker" :key="woodpecker.id">
             <b-radio href="#" size="is-small" v-model="woodpeckerId"
-                     :native-value="woodpecker.id">
+                     :native-value="woodpecker.id" @input="nextTab">
               <figure class="image is-64x64 block-center">
                 <img :alt="woodpecker.name" :src="woodpecker.img">
               </figure>
@@ -46,7 +46,7 @@
         <div class="columns is-multiline is-centered">
           <div class="column is-half is-narrow" v-for="index in nestingIndices" :key="index.id">
             <b-radio href="#" size="is-small" v-model="nestingIndex"
-                     :native-value="index.id">
+                     :native-value="index.id" @input="nextTab">
               <p class="is-size-7">{{ index.name }}&nbsp;[IN{{ index.id }}]</p>
             </b-radio>
           </div>
@@ -57,7 +57,7 @@
           <div class="column is-one-third is-narrow">
             <b-field label="Type d'habitat">
               <b-select placeholder="Sélectionnez un habitat" icon="view-list"
-                        size="is-small" expanded v-model="habitat">
+                        size="is-small" expanded v-model="habitat" @input="habitatChanged">
                 <option v-for="hab in habitats" :value="hab" :key="hab">
                     {{ hab }}
                 </option>
@@ -262,6 +262,14 @@ export default {
     }
   },
   methods: {
+    habitatChanged () {
+      if (this.habitat !== 'Forêt') {
+        this.$refs.wizard.nextTab()
+      }
+    },
+    nextTab () {
+      this.$refs.wizard.nextTab()
+    },
     submitForm () {
       this.$emit('form-complete')
     }
