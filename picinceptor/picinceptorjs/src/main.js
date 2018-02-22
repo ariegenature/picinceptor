@@ -4,12 +4,15 @@ import App from './App'
 import Buefy from 'buefy'
 import Vue from 'vue'
 import Vue2Leaflet from 'vue2-leaflet'
+import VueFormWizard from 'vue-form-wizard'
 import router from './router'
 import 'buefy/lib/buefy.css'
+import 'vue-form-wizard/dist/vue-form-wizard.min.css'
 
 Vue.config.productionTip = false
 
 Vue.use(Buefy)
+Vue.use(VueFormWizard)
 
 Vue.component('v-map', Vue2Leaflet.Map)
 Vue.component('v-tilelayer', Vue2Leaflet.TileLayer)
