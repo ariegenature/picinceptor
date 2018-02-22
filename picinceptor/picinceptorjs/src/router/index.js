@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import ContributePage from '@/components/ContributePage'
 
 Vue.use(Router)
 
@@ -8,9 +8,14 @@ export default new Router({
   mode: 'history',
   routes: [
     {
+      path: '/contribute',
+      name: 'contribute',
+      component: ContributePage
+    },
+    {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      redirect: '/contribute'
     }
+
   ]
 })
