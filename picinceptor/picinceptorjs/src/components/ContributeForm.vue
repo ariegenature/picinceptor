@@ -47,7 +47,7 @@
           <div class="column is-half is-narrow" v-for="index in nestingIndices" :key="index.id">
             <b-radio href="#" size="is-small" v-model="nestingIndex"
                      :native-value="index.id">
-              <p class="is-size-7">{{ index.name }}</p>
+              <p class="is-size-7">{{ index.name }}&nbsp;[IN{{ index.id }}]</p>
             </b-radio>
           </div>
         </div>
