@@ -15,7 +15,32 @@
         </div>
       </tab-content>
       <tab-content title="Espèce de pic">
-        <p>Choix de l'espèce de pic.</p>
+        <div class="columns is-multiline is-centered">
+          <div class="column is-one-third has-text-centered" v-for="woodpecker in woodpeckers"
+            :item="woodpecker" :key="woodpecker.id">
+            <b-radio href="#" size="is-small" v-model="woodpeckerId"
+                     :native-value="woodpecker.id">
+              <figure class="image is-64x64 block-center">
+                <img :alt="woodpecker.name" :src="woodpecker.img">
+              </figure>
+              <p class="is-size-7">{{ woodpecker.name }}</p>
+            </b-radio>
+          </div>
+        </div>
+        <hr>
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <div class="content">
+              <p class="is-size-7">
+              Un doute&nbsp;? Téléchargez les
+              <a target="_blank"
+                 href="https://ariegenature.fr/wp-content/uploads/2017/03/identification_pics.pdf">
+                fiches d'identification
+              </a>&nbsp;!
+              </p>
+            </div>
+          </div>
+        </div>
       </tab-content>
       <tab-content title="Indice de nidification">
         <p>Indice de nidification.</p>
@@ -41,7 +66,50 @@ export default {
     return {
       monthNames: MONTH_NAMES,
       dayNames: DAY_NAMES,
-      observationDate: new Date()
+      woodpeckers: [
+        {
+          id: 1,
+          name: 'Pic noir',
+          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png'
+        },
+        {
+          id: 2,
+          name: 'Pic épeiche',
+          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png'
+        },
+        {
+          id: 3,
+          name: 'Pic mar',
+          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png'
+        },
+        {
+          id: 4,
+          name: 'Pic épeichette',
+          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png'
+        },
+        {
+          id: 5,
+          name: 'Pic vert',
+          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png'
+        },
+        {
+          id: 6,
+          name: 'Torcol fourmilier',
+          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png'
+        },
+        {
+          id: 7,
+          name: 'Pic de Sharpe',
+          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png'
+        },
+        {
+          id: 8,
+          name: 'Pic à dos blanc',
+          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png'
+        }
+      ],
+      observationDate: new Date(),
+      woodpeckerId: null
     }
   },
   methods: {
