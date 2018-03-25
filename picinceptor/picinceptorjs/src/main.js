@@ -6,6 +6,7 @@ import Vue from 'vue'
 import Vue2Leaflet from 'vue2-leaflet'
 import VueFormWizard from 'vue-form-wizard'
 import router from './router'
+import store from './store'
 import 'buefy/lib/buefy.css'
 import 'vue-form-wizard/dist/vue-form-wizard.min.css'
 
@@ -22,5 +23,6 @@ new Vue({
   el: '#app',
   router,
   components: { App },
+  store,
   template: '<App/>'
 })
