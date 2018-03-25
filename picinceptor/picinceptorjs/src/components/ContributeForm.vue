@@ -116,6 +116,8 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 const MONTH_NAMES = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août',
   'Septembre', 'Octobre', 'Novembre', 'Décembre']
 const DAY_NAMES = ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.']
@@ -263,7 +265,10 @@ export default {
     },
     coniferStr () {
       return this.hasConifer ? 'Présence de conifères' : 'Pas de conifère'
-    }
+    },
+    ...mapGetters('contribution', [
+      'contribution'
+    ])
   },
   methods: {
     checkContactComplete () {
@@ -307,6 +312,7 @@ export default {
       }
     },
     handleStepChange (prevIndex, nextIndex) {
+      this.updateContribution()
       this.giveFocusToFirstField(nextIndex)
     },
     nextTab () {
@@ -314,6 +320,40 @@ export default {
     },
     submitForm () {
       this.$emit('form-complete')
+    },
+    updateContribution () {
+      var contribution = {
+        observationDate: this.observationDate,
+        woodpeckerId: this.woodpeckerId,
+        nestingIndex: this.nestingIndex,
+        habitat: this.habitat,
+        dominant: this.dominant,
+        hasDeadTrees: this.hasDeadTrees,
+        hasConifer: this.hasConifer,
+        firstName: this.firstName,
+        surname: this.surname,
+        email: this.email,
+        school: this.school
+      }
+      this.setContribution(contribution)
+    },
+    ...mapActions('contribution', [
+      'setContribution'
+    ])
+  },
+  created () {
+    if (this.contribution) {
+      this.observationDate = this.contribution.observationDate
+      this.woodpeckerId = this.contribution.woodpeckerId
+      this.nestingIndex = this.contribution.nestingIndex
+      this.habitat = this.contribution.habitat
+      this.dominant = this.contribution.dominant
+      this.hasDeadTrees = this.contribution.hasDeadTrees
+      this.hasConifer = this.contribution.hasConifer
+      this.firstName = this.contribution.firstName
+      this.surname = this.contribution.surname
+      this.email = this.contribution.email
+      this.school = this.contribution.school
     }
   }
 }
