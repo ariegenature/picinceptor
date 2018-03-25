@@ -2,6 +2,7 @@
 
 from codecs import open
 from setuptools import setup, find_packages
+import glob
 import os
 
 project_slug = 'picinceptor'
@@ -27,6 +28,8 @@ for root, dirs, fnames in os.walk(os.path.join(project_slug, 'picinceptorjs')):
         dirs.remove('node_modules')
     if 'coverage' in dirs:
         dirs.remove('coverage')
+for sql_script in glob.glob(os.path.join(project_slug, 'database', '*.sql')):
+    package_data.append(sql_script)
 
 
 setup(

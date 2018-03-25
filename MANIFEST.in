@@ -1,6 +1,7 @@
 include picinceptor/VERSION
 include *.rst
 include .coveragerc
+include picinceptor/database/*.sql
 include picinceptor/picinceptorjs/.babelrc
 include picinceptor/picinceptorjs/.editorconfig
 include picinceptor/picinceptorjs/.eslintignore
