@@ -18,7 +18,8 @@
     "vue": "^2.5.2",
     "vue-form-wizard": "^0.8.4",
     "vue-router": "^3.0.1",
-    "vue2-leaflet": "0.0.58"
+    "vue2-leaflet": "0.0.58",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
