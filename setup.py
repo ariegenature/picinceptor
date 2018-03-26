@@ -66,6 +66,7 @@ setup(
     packages=find_packages(exclude=['docs', 'tests', 'atests']),
     py_modules=['picinceptor_app'],
     install_requires=[
+        'anosql',
         'chaussette',
         'circus',
         'flask',
