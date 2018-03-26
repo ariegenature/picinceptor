@@ -15,6 +15,9 @@ from picinceptor.views import (
     blueprints,
     home as home_view,
 )
+from picinceptor.views.api import (
+    ObservationResource
+)
 
 
 _DEFAULT_CONFIG = {
@@ -106,5 +109,6 @@ def create_app(config):
         app.register_blueprint(blueprint)
     # Register views, handlers and cli commands
     app.route('/')(home_view)
+    rest_api.add_resource(ObservationResource, '/api/observation', endpoint='observation')
     rest_api.init_app(app)
     return app
