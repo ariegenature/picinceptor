@@ -70,6 +70,7 @@ setup(
         'circus',
         'flask',
         'konfig',
+        'psycopg2-binary',
         'six',
         'xdg<2.0',
         'html5lib<1.0.1',
