@@ -8,7 +8,7 @@
         <div class="columns is-mobile is-centered">
           <div class="column is-narrow has-text-centered">
             <b-field>
-              <b-datepicker inline size="is-small" v-model="observationDate"
+              <b-datepicker inline size="is-small" v-model="data.observationDate"
                             :month-names="monthNames" :day-names="dayNames"
                             :first-day-of-week="1" @input="nextTab"></b-datepicker>
             </b-field>
@@ -19,7 +19,7 @@
         <div class="columns is-multiline is-centered">
           <div class="column is-one-third has-text-centered" v-for="woodpecker in woodpeckers"
             :item="woodpecker" :key="woodpecker.id">
-            <b-radio href="#" size="is-small" v-model="woodpeckerId"
+            <b-radio href="#" size="is-small" v-model="data.woodpeckerId"
                      :native-value="woodpecker.id" @input="nextTab">
               <figure class="image is-64x64 block-center">
                 <img :alt="woodpecker.name" :src="woodpecker.img">
@@ -46,7 +46,7 @@
       <tab-content title="Indice de nidification" :before-change="checkIndexNotNull">
         <div class="columns is-multiline is-centered">
           <div class="column is-half is-narrow" v-for="index in nestingIndices" :key="index.id">
-            <b-radio href="#" size="is-small" v-model="nestingIndex"
+            <b-radio href="#" size="is-small" v-model="data.nestingIndex"
                      :native-value="index.id" @input="nextTab">
               <p class="is-size-7">{{ index.name }}&nbsp;[IN{{ index.id }}]</p>
             </b-radio>
@@ -58,31 +58,34 @@
           <div class="column is-one-third is-narrow">
             <b-field label="Type d'habitat">
               <b-select placeholder="Sélectionnez un habitat" icon="view-list"
-                        size="is-small" expanded v-model="habitat" @input="habitatChanged">
+                        size="is-small" expanded v-model="data.habitat" @input="habitatChanged">
                 <option v-for="hab in habitats" :value="hab" :key="hab">
                     {{ hab }}
                 </option>
               </b-select>
             </b-field>
           </div>
-          <div class="column is-one-third is-narrow" v-if="habitat === 'Forêt'">
+          <div class="column is-one-third is-narrow" v-if="data.habitat === 'Forêt'">
             <b-field label="Espèce dominante">
               <b-select placeholder="Sélectionnez une espèce d'arbre" icon="view-list"
-                        size="is-small" expanded v-model="dominant">
+                        size="is-small" expanded v-model="data.dominant">
                 <option v-for="treeType in dominantSpecies" :value="treeType" :key="treeType">
                     {{ treeType }}
                 </option>
               </b-select>
             </b-field>
           </div>
-          <div class="column is-one-third is-narrow" v-if="habitat === 'Forêt'">
+          <div class="column is-one-third is-narrow" v-else>
+            {{ data.habitat }}
+          </div>
+          <div class="column is-one-third is-narrow" v-if="data.habitat === 'Forêt'">
             <div class="field">
-              <b-switch  size="is-small" v-model="hasDeadTrees">
+              <b-switch  size="is-small" v-model="data.hasDeadTrees">
                 {{ deadTreesStr }}
               </b-switch>
             </div>
             <div class="field">
-              <b-switch  size="is-small" v-model="hasConifer">
+              <b-switch  size="is-small" v-model="data.hasConifer">
                 {{ coniferStr }}
               </b-switch>
             </div>
@@ -93,22 +96,22 @@
         <b-field grouped group-multiline>
           <b-field label="Votre prénom" expanded>
             <b-input expanded id="first-name" ref="firstFieldInTab4"
-                     v-model="firstName" autocomplete="given-name"
+                     v-model="data.firstName" autocomplete="given-name"
                      @keyup.native.enter="giveFocusToField('surname')"></b-input>
           </b-field>
           <b-field label="Votre nom" expanded>
-            <b-input expanded id="surname" ref="surname" v-model="surname"
+            <b-input expanded id="surname" ref="surname" v-model="data.surname"
                      autocomplete="family-name"
                      @keyup.native.enter="giveFocusToField('email')"></b-input>
           </b-field>
         </b-field>
         <b-field label="Votre adresse électronique" expanded>
           <b-input type="email" id="email" ref="email" placeholder="prenom.nom@example.org"
-                   autocomplete="email" v-model="email"
+                   autocomplete="email" v-model="data.email"
                    @keyup.native.enter="giveFocusToField('school')"></b-input>
         </b-field>
         <b-field label="Établissement (si scolaire)" expanded>
-          <b-input ref="school" autocomplete="organization" v-model="school"></b-input>
+          <b-input ref="school" autocomplete="organization" v-model="data.school"></b-input>
         </b-field>
       </tab-content>
     </form-wizard>
@@ -246,25 +249,15 @@ export default {
         'Chêne',
         'Conifères'
       ],
-      observationDate: new Date(),
-      woodpeckerId: null,
-      nestingIndex: null,
-      habitat: null,
-      dominant: null,
-      hasDeadTrees: false,
-      hasConifer: false,
-      firstName: '',
-      surname: '',
-      email: '',
-      school: ''
+      data: {}
     }
   },
   computed: {
     deadTreesStr () {
-      return this.hasDeadTrees ? 'Arbres morts au sol' : "Pas d'arbre mort au sol"
+      return this.data.hasDeadTrees ? 'Arbres morts au sol' : "Pas d'arbre mort au sol"
     },
     coniferStr () {
-      return this.hasConifer ? 'Présence de conifères' : 'Pas de conifère'
+      return this.data.hasConifer ? 'Présence de conifères' : 'Pas de conifère'
     },
     ...mapGetters('contribution', [
       'contribution'
@@ -272,27 +265,27 @@ export default {
   },
   methods: {
     checkContactComplete () {
-      return (this.firstName !== '' && this.firstName !== null &&
-        this.surname !== '' && this.surname !== null &&
-        this.email !== '' && this.email !== null)
+      return (this.data.firstName !== '' && this.data.firstName !== null &&
+        this.data.surname !== '' && this.data.surname !== null &&
+        this.data.email !== '' && this.data.email !== null)
     },
     checkDateNotNull () {
-      return this.observationDate !== null
+      return this.data.observationDate !== null
     },
     checkHabitatComplete () {
-      if (this.habitat === null) {
+      if (this.data.habitat === null) {
         return false
       }
-      if (this.habitat === 'Forêt' && this.dominant === null) {
+      if (this.data.habitat === 'Forêt' && this.data.dominant === null) {
         return false
       }
       return true
     },
     checkIndexNotNull () {
-      return this.nestingIndex !== null
+      return this.data.nestingIndex !== null
     },
     checkWoodpeckerNotNull () {
-      return this.woodpeckerId !== null
+      return this.data.woodpeckerId !== null
     },
     giveFocusToField (ref) {
       var field = this.$refs[ref]
@@ -307,7 +300,7 @@ export default {
       }
     },
     habitatChanged () {
-      if (this.habitat !== 'Forêt') {
+      if (this.data.habitat !== 'Forêt') {
         this.$refs.wizard.nextTab()
       }
     },
@@ -319,21 +312,9 @@ export default {
       this.$refs.wizard.nextTab()
     },
     async submitForm () {
-      var contribution = {
-        observationDate: this.observationDate,
-        woodpeckerId: this.woodpeckerId,
-        nestingIndex: this.nestingIndex,
-        habitat: this.habitat,
-        dominant: this.dominant,
-        hasDeadTrees: this.hasDeadTrees,
-        hasConifer: this.hasConifer,
-        firstName: this.firstName,
-        surname: this.surname,
-        email: this.email,
-        school: this.school
-      }
+      this.updateContribution()
       try {
-        await this.$post('observation', contribution)
+        await this.$post('observation', this.contribution)
         this.$toast.open({
           duration: 5000,
           message: 'Votre observation a bien été enregistrée. Merci !',
@@ -350,20 +331,15 @@ export default {
       this.$emit('form-complete')
     },
     updateContribution () {
-      var contribution = {
-        observationDate: this.observationDate,
-        woodpeckerId: this.woodpeckerId,
-        nestingIndex: this.nestingIndex,
-        habitat: this.habitat,
-        dominant: this.dominant,
-        hasDeadTrees: this.hasDeadTrees,
-        hasConifer: this.hasConifer,
-        firstName: this.firstName,
-        surname: this.surname,
-        email: this.email,
-        school: this.school
+      var data = Object.assign({}, this.data)
+      var observationDate = data.observationDate
+      data.observationDate = `${observationDate.getFullYear()}-${observationDate.getMonth() + 1}-${observationDate.getDate()}`
+      if (data.habitat !== 'Forêt') {
+        data.dominant = null
+        data.hasDeadTrees = null
+        data.hasConifer = null
       }
-      this.setContribution(contribution)
+      this.setContribution(data)
     },
     ...mapActions('contribution', [
       'setContribution'
@@ -371,17 +347,20 @@ export default {
   },
   created () {
     if (this.contribution) {
-      this.observationDate = this.contribution.observationDate
-      this.woodpeckerId = this.contribution.woodpeckerId
-      this.nestingIndex = this.contribution.nestingIndex
-      this.habitat = this.contribution.habitat
-      this.dominant = this.contribution.dominant
-      this.hasDeadTrees = this.contribution.hasDeadTrees
-      this.hasConifer = this.contribution.hasConifer
-      this.firstName = this.contribution.firstName
-      this.surname = this.contribution.surname
-      this.email = this.contribution.email
-      this.school = this.contribution.school
+      this.data = Object.assign({}, this.contribution,
+        { observationDate: new Date(this.contribution.observationDate) })
+    } else {
+      this.$set(this.data, 'observationDate', new Date())
+      this.$set(this.data, 'woodpeckerId', null)
+      this.$set(this.data, 'nestingIndex', null)
+      this.$set(this.data, 'habitat', null)
+      this.$set(this.data, 'dominant', null)
+      this.$set(this.data, 'hasDeadTrees', false)
+      this.$set(this.data, 'hasConifer', false)
+      this.$set(this.data, 'firstName', '')
+      this.$set(this.data, 'surname', '')
+      this.$set(this.data, 'email', '')
+      this.$set(this.data, 'school', '')
     }
   }
 }
