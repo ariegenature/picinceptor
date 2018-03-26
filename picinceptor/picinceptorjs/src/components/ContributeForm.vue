@@ -130,42 +130,42 @@ export default {
       dayNames: DAY_NAMES,
       woodpeckers: [
         {
-          id: 1,
+          id: 3608,
           name: 'Pic noir',
           img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png'
         },
         {
-          id: 2,
+          id: 3611,
           name: 'Pic épeiche',
           img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png'
         },
         {
-          id: 3,
+          id: 3619,
           name: 'Pic mar',
           img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png'
         },
         {
-          id: 4,
+          id: 3630,
           name: 'Pic épeichette',
           img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png'
         },
         {
-          id: 5,
+          id: 3603,
           name: 'Pic vert',
           img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png'
         },
         {
-          id: 6,
+          id: 3595,
           name: 'Torcol fourmilier',
           img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png'
         },
         {
-          id: 7,
+          id: 3605,
           name: 'Pic de Sharpe',
           img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png'
         },
         {
-          id: 8,
+          id: 3625,
           name: 'Pic à dos blanc',
           img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png'
         }
