@@ -46,6 +46,8 @@ class ObservationResource(Resource):
                                  nullable=False, help='Observer email')
         self.parser.add_argument('school', dest='observer_school', type=str, default='',
                                  nullable=False, help='Observer school')
+        self.parser.add_argument('eWkt', dest='geometry', type=str,
+                                 required=True, nullable=False, help='Observation coordinates')
 
     def post(self):
         observation_dict = self.parser.parse_args(strict=True)
