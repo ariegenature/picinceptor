@@ -16,6 +16,7 @@ export default {
   actions: {
     setClickLatLng: ({ commit }, latLngObject) => {
       commit('clickLatLng', latLngObject)
+      commit('contribution/eWkt', latLngObject, { root: true })
     }
   }
 }
