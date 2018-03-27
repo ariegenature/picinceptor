@@ -318,7 +318,35 @@ export default {
     nextTab () {
       this.$refs.wizard.nextTab()
     },
-    submitForm () {
+    async submitForm () {
+      var contribution = {
+        observationDate: this.observationDate,
+        woodpeckerId: this.woodpeckerId,
+        nestingIndex: this.nestingIndex,
+        habitat: this.habitat,
+        dominant: this.dominant,
+        hasDeadTrees: this.hasDeadTrees,
+        hasConifer: this.hasConifer,
+        firstName: this.firstName,
+        surname: this.surname,
+        email: this.email,
+        school: this.school
+      }
+      try {
+        await this.$post('observation', contribution)
+        this.$toast.open({
+          duration: 5000,
+          message: 'Votre observation a bien été enregistrée. Merci !',
+          type: 'is-success'
+        })
+      } catch (e) {
+        console.log(e)
+        this.$toast.open({
+          duration: 5000,
+          message: "Une erreur s'est produite. Veuillez contacter un administrateur.",
+          type: 'is-danger'
+        })
+      }
       this.$emit('form-complete')
     },
     updateContribution () {
