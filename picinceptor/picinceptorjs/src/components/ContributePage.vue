@@ -2,8 +2,17 @@
   <main class="hero is-fullheight">
   <div id="hero-map" class="hero-body">
     <div id="container-map" class="container is-fluid">
-      <div id="map">
-        <contribute-map @marker-created="openForm"></contribute-map>
+      <div class="columns">
+        <div class="column is-three-fifths">
+          <div id="map">
+            <contribute-map @marker-created="openForm"></contribute-map>
+          </div>
+        </div>
+        <div class="column">
+          <div class="content">
+            <p class="title is-6">Observations récentes</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -64,7 +73,7 @@ export default {
   height: 100%;
 }
 #map {
-  height: 90%;
+  height: 80vh;
 }
 .modal {
   z-index: 1000 !important;
