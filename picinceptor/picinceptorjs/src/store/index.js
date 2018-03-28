@@ -89,42 +89,50 @@ export default new Vuex.Store({
         {
           id: 3608,
           name: 'Pic noir',
-          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png'
+          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png',
+          color: '#fa6b67'
         },
         {
           id: 3611,
           name: 'Pic épeiche',
-          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png'
+          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png',
+          color: '#f9fb80'
         },
         {
           id: 3619,
           name: 'Pic mar',
-          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png'
+          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png',
+          color: '#3e8bc7'
         },
         {
           id: 3630,
           name: 'Pic épeichette',
-          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png'
+          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png',
+          color: '#fabf81'
         },
         {
           id: 3603,
           name: 'Pic vert',
-          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png'
+          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png',
+          color: '#9afba9'
         },
         {
           id: 3595,
           name: 'Torcol fourmilier',
-          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png'
+          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png',
+          color: '#7853c7'
         },
         {
           id: 3605,
           name: 'Pic de Sharpe',
-          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png'
+          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png',
+          color: '#cf13fa'
         },
         {
           id: 3625,
           name: 'Pic à dos blanc',
-          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png'
+          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png',
+          color: '#23c78f'
         }
       ]
     }
@@ -148,6 +156,7 @@ export default new Vuex.Store({
         var woodpecker = state.woodpeckers.find((woodpecker) => woodpecker.id === feature.properties.woodpeckerId)
         feature.properties.woodpeckerName = woodpecker.name
         feature.properties.woodpeckerImg = woodpecker.img
+        feature.properties.color = woodpecker.color
         var breedingCode = state.nestingIndices.find((code) => code.id === feature.properties.breedingCode)
         feature.properties.breedingDesc = breedingCode.name
       })

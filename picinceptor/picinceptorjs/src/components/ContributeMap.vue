@@ -32,7 +32,7 @@ export default {
             weight: 1,
             color: '#7A3432',
             opacity: 1,
-            fillColor: '#FA6B67',
+            fillColor: feature.properties.color,
             fillOpacity: 1,
             className: 'contribution'
           })
@@ -47,7 +47,7 @@ export default {
             <div class="media-content">
             <div class="content">
             <p style="margin-top: 0; margin-bottom: 0">
-            <strong>${feature.properties.woodpeckerName}</strong>&nbsp;<small>[<span class="has-text-info">IN${feature.properties.breedingCode}]</span></small>
+            <strong><span style="color: ${feature.properties.color}">${feature.properties.woodpeckerName}</span></strong>&nbsp;<small>[<span class="has-text-info">IN${feature.properties.breedingCode}]</span></small>
             <br>
             <small>
             <span class="has-text-info">${feature.properties.observationDate.toLocaleDateString()}&nbsp;</span>
