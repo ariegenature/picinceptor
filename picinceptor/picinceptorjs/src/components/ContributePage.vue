@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import ContributeForm from './ContributeForm'
 import ContributeMap from './ContributeMap'
 
@@ -29,12 +30,31 @@ export default {
     }
   },
   methods: {
+    async updateContributions () {
+      try {
+        var response = await this.$get('observation')
+        this.setContributions(response.data)
+      } catch (e) {
+        console.log(e)
+        this.$toast.open({
+          duration: 5000,
+          message: "Une erreur s'est produite. Veuillez contacter un administrateur.",
+          type: 'is-danger'
+        })
+      }
+    },
     openForm (ev) {
       this.isFormActive = true
     },
     closeForm (ev) {
       this.isFormActive = false
-    }
+    },
+    ...mapActions([
+      'setContributions'
+    ])
+  },
+  created () {
+    this.updateContributions()
   }
 }
 </script>
