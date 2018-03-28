@@ -306,14 +306,12 @@ export default {
       }
     },
     handleStepChange (prevIndex, nextIndex) {
-      this.updateContribution()
       this.giveFocusToFirstField(nextIndex)
     },
     nextTab () {
       this.$refs.wizard.nextTab()
     },
     async submitForm () {
-      this.updateContribution()
       try {
         await this.$post('observation', Object.assign({}, this.contribution, { eWkt: this.eWkt }))
         this.$toast.open({
@@ -345,6 +343,15 @@ export default {
     ...mapActions('contribution', [
       'setContribution'
     ])
+  },
+  watch: {
+    data: {
+      handler (val, oldVal) {
+        console.log(val)
+        this.updateContribution()
+      },
+      deep: true
+    }
   },
   created () {
     if (this.contribution) {
