@@ -1,6 +1,7 @@
 """Picinceptor blueprint for API requests."""
 
 from datetime import date
+import json
 import os.path
 
 from flask import current_app
@@ -50,6 +51,43 @@ class ObservationResource(Resource):
                                       nullable=False, help='Observer school')
         self.post_parser.add_argument('eWkt', dest='geometry', type=str,
                                       required=True, nullable=False, help='Observation coordinates')
+
+    def get(self):
+        query = anosql.load_queries(
+                'postgres',
+                os.path.join(os.path.dirname(picinceptor.__file__), 'database',
+                             'select_observations.sql')
+        ).get_observations
+        with psycopg2.connect(host=current_app.config['DB_HOST'],
+                              port=current_app.config.get('DB_PORT', 5432),
+                              user=current_app.config['DB_USER'],
+                              password=current_app.config['DB_PASS'],
+                              dbname=current_app.config['DB_NAME']) as cnx:
+            rows = query(cnx)
+        # build response
+        res = {
+            'type': 'FeatureCollection',
+            'features': []
+        }
+        features = res['features']
+        for row in rows:
+            (obs_id, obs_date, woodpecker_id, breeding_code, habitat, dominant_tree, has_dead_trees,
+             has_conifers, geojson) = row
+            features.append({
+                'type': 'Feature',
+                'id': obs_id,
+                'properties': {
+                    'observationDate': obs_date.strftime('%Y-%m-%d'),
+                    'woodpeckerId': woodpecker_id,
+                    'breedingCode': breeding_code,
+                    'habitat': habitat,
+                    'dominantTree': dominant_tree,
+                    'hasDeadTrees': has_dead_trees,
+                    'hasConifers': has_conifers,
+                },
+                'geometry': json.loads(geojson)
+            })
+        return res
 
     def post(self):
         observation_dict = self.post_parser.parse_args(strict=True)
