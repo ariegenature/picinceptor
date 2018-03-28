@@ -11,6 +11,7 @@
         <div class="column">
           <div class="content">
             <p class="title is-6">Observations récentes</p>
+            <contribution-table></contribution-table>
           </div>
         </div>
       </div>
@@ -26,12 +27,14 @@
 import { mapActions } from 'vuex'
 import ContributeForm from './ContributeForm'
 import ContributeMap from './ContributeMap'
+import ContributionTable from './ContributionTable'
 
 export default {
   name: 'ContributePage',
   components: {
     ContributeForm,
-    ContributeMap
+    ContributeMap,
+    ContributionTable
   },
   data () {
     return {
