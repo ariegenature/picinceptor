@@ -7,6 +7,16 @@ export default {
   install (vue, options) {
     baseUrl = options.baseUrl
     Vue.prototype.$post = $post
+    Vue.prototype.$get = $get
+  }
+}
+
+export async function $get (url) {
+  try {
+    const response = await axios.get(`${baseUrl}${url}`)
+    return response
+  } catch (e) {
+    throw e
   }
 }
 
