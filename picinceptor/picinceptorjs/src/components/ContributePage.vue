@@ -60,6 +60,7 @@ export default {
     },
     closeForm (ev) {
       this.isFormActive = false
+      this.updateContributions()
     },
     ...mapActions([
       'setContributions'
