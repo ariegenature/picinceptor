@@ -347,7 +347,6 @@ export default {
   watch: {
     data: {
       handler (val, oldVal) {
-        console.log(val)
         this.updateContribution()
       },
       deep: true
