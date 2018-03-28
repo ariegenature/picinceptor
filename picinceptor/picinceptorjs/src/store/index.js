@@ -8,6 +8,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state () {
     return {
+      contributions: null,
       dominantSpecies: [
         'Hêtre',
         'Chêne',
@@ -129,10 +130,29 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    contributions: (state) => state.contributions,
     dominantSpecies: (state) => state.dominantSpecies,
     habitats: (state) => state.habitats,
     nestingIndices: (state) => state.nestingIndices,
     woodpeckers: (state) => state.woodpeckers
+  },
+  mutations: {
+    contributions: (state, contribs) => {
+      state.contributions = contribs
+    }
+  },
+  actions: {
+    setContributions: ({ commit, state }, contribs) => {
+      contribs.features.forEach((feature) => {
+        feature.properties.observationDate = new Date(Date.parse(feature.properties.observationDate))
+        var woodpecker = state.woodpeckers.find((woodpecker) => woodpecker.id === feature.properties.woodpeckerId)
+        feature.properties.woodpeckerName = woodpecker.name
+        feature.properties.woodpeckerImg = woodpecker.img
+        var breedingCode = state.nestingIndices.find((code) => code.id === feature.properties.breedingCode)
+        feature.properties.breedingDesc = breedingCode.name
+      })
+      commit('contributions', contribs)
+    }
   },
   modules: {
     contribution,
