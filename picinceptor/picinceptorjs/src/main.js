@@ -20,6 +20,7 @@ Vue.use(VueApi, {
 Vue.use(VueFormWizard)
 
 Vue.component('v-map', Vue2Leaflet.Map)
+Vue.component('v-marker', Vue2Leaflet.Marker)
 Vue.component('v-tilelayer', Vue2Leaflet.TileLayer)
 
 /* eslint-disable no-new */
