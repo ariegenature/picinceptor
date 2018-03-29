@@ -15,7 +15,11 @@ export default {
       state.contribution = c
     },
     eWkt: (state, latLngObject) => {
-      state.eWkt = `SRID=4326;POINT(${latLngObject.lng} ${latLngObject.lat})`
+      if (latLngObject) {
+        state.eWkt = `SRID=4326;POINT(${latLngObject.lng} ${latLngObject.lat})`
+      } else {
+        state.eWkt = ''
+      }
     }
   },
   actions: {

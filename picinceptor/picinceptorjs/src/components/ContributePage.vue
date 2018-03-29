@@ -61,9 +61,13 @@ export default {
     closeForm (ev) {
       this.isFormActive = false
       this.updateContributions()
+      this.clearClickLatLng()
     },
     ...mapActions([
       'setContributions'
+    ]),
+    ...mapActions('map', [
+      'clearClickLatLng'
     ])
   },
   created () {
