@@ -20,6 +20,7 @@ with open(os.path.join(root_path, 'README.rst'), encoding='utf-8') as f:
 # Collect package data to be installed
 package_data = [
     'VERSION',
+    'static/*'
 ]
 for root, dirs, fnames in os.walk(os.path.join(project_slug, 'picinceptorjs')):
     for fname in fnames:
