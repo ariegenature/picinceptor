@@ -89,49 +89,49 @@ export default new Vuex.Store({
         {
           id: 3608,
           name: 'Pic noir',
-          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png',
+          img: 'static/pic-noir.png',
           color: '#fa6b67'
         },
         {
           id: 3611,
           name: 'Pic épeiche',
-          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png',
+          img: 'static/pic-epeiche.png',
           color: '#f9fb80'
         },
         {
           id: 3619,
           name: 'Pic mar',
-          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png',
+          img: 'static/pic-mar.png',
           color: '#3e8bc7'
         },
         {
           id: 3630,
           name: 'Pic épeichette',
-          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png',
+          img: 'static/pic-epeichette.png',
           color: '#fabf81'
         },
         {
           id: 3603,
           name: 'Pic vert',
-          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png',
+          img: 'static/pic-vert.png',
           color: '#9afba9'
         },
         {
           id: 3595,
           name: 'Torcol fourmilier',
-          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png',
+          img: 'static/torcol.png',
           color: '#7853c7'
         },
         {
           id: 3605,
           name: 'Pic de Sharpe',
-          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png',
+          img: 'static/pic-de-sharpe.png',
           color: '#cf13fa'
         },
         {
           id: 3625,
           name: 'Pic à dos blanc',
-          img: 'https://openclipart.org/image/64px/svg_to_png/170814/yaffle.png',
+          img: 'static/pic-a-dos-blanc.png',
           color: '#23c78f'
         }
       ]
