@@ -235,6 +235,9 @@ export default {
   watch: {
     data: {
       handler (val, oldVal) {
+        if (val.dominant === 'Conifères') {
+          this.data.hasConifer = true
+        }
         this.updateContribution()
       },
       deep: true
