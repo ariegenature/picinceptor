@@ -27,15 +27,19 @@ export default {
       zoom: 8,
       contributionLayerOptions: {
         pointToLayer: function (feature, latlng) {
-          return L.circleMarker(latlng, {
-            radius: 4,
-            weight: 1,
-            color: '#7A3432',
-            opacity: 1,
-            fillColor: feature.properties.color,
-            fillOpacity: 1,
-            className: 'contribution'
-          })
+          if (feature.properties.breedingCode !== 0) {
+            return L.circleMarker(latlng, {
+              radius: 4,
+              weight: 1,
+              color: '#7A3432',
+              opacity: 1,
+              fillColor: feature.properties.color,
+              fillOpacity: 1,
+              className: 'contribution'
+            })
+          } else {
+            return L.marker(latlng, { icon: L.divIcon({ className: 'icon', html: '<span style="color: #8b0000"><i class="mdi mdi-close mdi-12px"></i></span>' }) })
+          }
         },
         onEachFeature: function (feature, layer) {
           layer.bindPopup(`<div class="media">
