@@ -165,6 +165,9 @@ export default {
       if (this.data.habitat === 'Forêt' && this.data.dominant === null) {
         return false
       }
+      if (this.data.dominant === 'Conifères' && this.data.hasConifer === false) {
+        return false
+      }
       return true
     },
     checkIndexNotNull () {
