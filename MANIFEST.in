@@ -1,7 +1,6 @@
 include picinceptor/VERSION
 include *.rst
 include .coveragerc
-include picinceptor/database/*.sql
 include picinceptor/picinceptorjs/.babelrc
 include picinceptor/picinceptorjs/.editorconfig
 include picinceptor/picinceptorjs/.eslintignore
@@ -26,8 +25,9 @@ include picinceptor/picinceptorjs/config/prod.env.js
 include picinceptor/picinceptorjs/config/test.env.js
 include picinceptor/picinceptorjs/static/.gitkeep
 include picinceptor/picinceptorjs/test/unit/.eslintrc
-include picinceptor/static/*
 recursive-include atests *.robot *.rst *.html *.txt
+recursive-include picinceptor/database *.sql
 recursive-include picinceptor/picinceptorjs/src *.vue *.js *.png
 recursive-include picinceptor/picinceptorjs/test *.js
+recursive include picinceptor/static *.png
 prune picinceptor/picinceptorjs/test/unit/coverage

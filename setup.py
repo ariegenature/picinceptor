@@ -2,7 +2,6 @@
 
 from codecs import open
 from setuptools import setup, find_packages
-import glob
 import os
 
 project_slug = 'picinceptor'
@@ -20,7 +19,8 @@ with open(os.path.join(root_path, 'README.rst'), encoding='utf-8') as f:
 # Collect package data to be installed
 package_data = [
     'VERSION',
-    'static/*'
+    'static/*',
+    'database/*.sql',
 ]
 for root, dirs, fnames in os.walk(os.path.join(project_slug, 'picinceptorjs')):
     for fname in fnames:
@@ -29,8 +29,6 @@ for root, dirs, fnames in os.walk(os.path.join(project_slug, 'picinceptorjs')):
         dirs.remove('node_modules')
     if 'coverage' in dirs:
         dirs.remove('coverage')
-for sql_script in glob.glob(os.path.join(project_slug, 'database', '*.sql')):
-    package_data.append(sql_script)
 
 
 setup(
