@@ -96,9 +96,6 @@ class ObservationResource(Resource):
             os.path.join(os.path.dirname(picinceptor.__file__), 'database',
                          'insert_observation.sql')
         ).insert_observation_auto
-        print(current_app.config['DB_HOST'], current_app.config['DB_PORT'],
-              current_app.config['DB_USER'], current_app.config['DB_PASS'],
-              current_app.config['DB_NAME'])
         with psycopg2.connect(host=current_app.config['DB_HOST'],
                               port=current_app.config.get('DB_PORT', 5432),
                               user=current_app.config['DB_USER'],
