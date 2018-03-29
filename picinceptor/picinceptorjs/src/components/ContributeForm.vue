@@ -75,9 +75,6 @@
               </b-select>
             </b-field>
           </div>
-          <div class="column is-one-third is-narrow" v-else>
-            {{ data.habitat }}
-          </div>
           <div class="column is-one-third is-narrow" v-if="data.habitat === 'Forêt'">
             <div class="field">
               <b-switch  size="is-small" v-model="data.hasDeadTrees">
