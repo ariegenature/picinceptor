@@ -21,7 +21,7 @@ export default {
     setClickLatLng: ({ commit }, latLngObject) => {
       commit('clickLatLng', latLngObject)
       commit('contribution/eWkt', latLngObject, { root: true })
-    }
+    },
     clearClickLatLng: ({ commit }) => {
       commit('clickLatLng', null)
       commit('contribution/eWkt', null, { root: true })
