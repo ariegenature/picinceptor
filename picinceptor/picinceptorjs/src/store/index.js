@@ -90,49 +90,49 @@ export default new Vuex.Store({
           id: 3608,
           name: 'Pic noir',
           img: 'static/pic-noir.png',
-          color: '#fa6b67'
+          color: '#000000'
         },
         {
           id: 3611,
           name: 'Pic épeiche',
           img: 'static/pic-epeiche.png',
-          color: '#f9fb80'
+          color: '#ff0000'
         },
         {
           id: 3619,
           name: 'Pic mar',
           img: 'static/pic-mar.png',
-          color: '#3e8bc7'
+          color: '#ffc0cb'
         },
         {
           id: 3630,
           name: 'Pic épeichette',
           img: 'static/pic-epeichette.png',
-          color: '#fabf81'
+          color: '#ffffff'
         },
         {
           id: 3603,
           name: 'Pic vert',
           img: 'static/pic-vert.png',
-          color: '#9afba9'
+          color: '#00ff00'
         },
         {
           id: 3595,
           name: 'Torcol fourmilier',
           img: 'static/torcol.png',
-          color: '#7853c7'
+          color: '#a52a2a'
         },
         {
           id: 3605,
           name: 'Pic de Sharpe',
           img: 'static/pic-de-sharpe.png',
-          color: '#cf13fa'
+          color: '#ffff00'
         },
         {
           id: 3625,
           name: 'Pic à dos blanc',
           img: 'static/pic-a-dos-blanc.png',
-          color: '#23c78f'
+          color: '#ee82ee'
         }
       ]
     }
