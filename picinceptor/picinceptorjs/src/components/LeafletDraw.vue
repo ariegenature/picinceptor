@@ -103,6 +103,10 @@ export default {
       draw: drawOptions
     }
     this.mapObject = new L.Control.Draw(options)
+    L.drawLocal.draw.toolbar.actions.text = "Annuler l'observation"
+    L.drawLocal.draw.toolbar.actions.text = 'Annuler'
+    L.drawLocal.draw.toolbar.buttons.marker = 'Ajouter une observation'
+    L.drawLocal.draw.handlers.marker.tooltip.start = "Cliquer sur la carte à l'endroit de l'observation"
     if (this.$parent._isMounted) {
       this.deferredMountedTo(this.$parent.mapObject)
     }
