@@ -14,9 +14,7 @@ import 'vue-form-wizard/dist/vue-form-wizard.min.css'
 Vue.config.productionTip = false
 
 Vue.use(Buefy)
-Vue.use(VueApi, {
-  baseUrl: 'http://localhost:5000/api/'
-})
+Vue.use(VueApi)
 Vue.use(VueFormWizard)
 
 Vue.component('v-geojson-layer', Vue2Leaflet.GeoJSON)

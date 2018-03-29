@@ -44,7 +44,7 @@ export default {
   methods: {
     async updateContributions () {
       try {
-        var response = await this.$get('observation')
+        var response = await this.$get('api/observation')
         this.setContributions(response.data)
       } catch (e) {
         console.log(e)

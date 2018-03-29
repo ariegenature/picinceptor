@@ -201,7 +201,7 @@ export default {
     },
     async submitForm () {
       try {
-        await this.$post('observation', Object.assign({}, this.contribution, { eWkt: this.eWkt }))
+        await this.$post('api/observation', Object.assign({}, this.contribution, { eWkt: this.eWkt }))
         this.$toast.open({
           duration: 5000,
           message: 'Votre observation a bien été enregistrée. Merci !',
