@@ -4,8 +4,8 @@
       <img src="https://openclipart.org/image/64px/svg_to_png/235000/Birds-Silhouettes-Woodpecker.png"
            alt="Logo enquête" height="64">
       <div style="margin-left: 1rem;">
-        <h1 class="title is-5">Étude participative</h1>
-        <h2 class="subtitle is-7">Pics des Pyrénées</h2>
+        <h1 class="title is-5">Pics des Pyrénées</h1>
+        <h2 class="subtitle is-7">Étude participative</h2>
       </div>
     </a>
     <div class="button navbar-burger" :class="{ 'is-active': menuActive }"
