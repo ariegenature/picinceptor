@@ -1,5 +1,8 @@
 <template>
   <main class="hero is-fullheight">
+  <div class="hero-head">
+    <navbar></navbar>
+  </div>
   <div id="hero-map" class="hero-body">
     <div id="container-map" class="container is-fluid">
       <div class="columns">
@@ -28,13 +31,15 @@ import { mapActions } from 'vuex'
 import ContributeForm from './ContributeForm'
 import ContributeMap from './ContributeMap'
 import ContributionTable from './ContributionTable'
+import Navbar from './Navbar'
 
 export default {
   name: 'ContributePage',
   components: {
     ContributeForm,
     ContributeMap,
-    ContributionTable
+    ContributionTable,
+    Navbar
   },
   data () {
     return {
