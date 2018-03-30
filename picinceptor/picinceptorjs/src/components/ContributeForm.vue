@@ -1,7 +1,7 @@
 <template>
   <form id="contribute-form" method="POST" accept-charset="UTF-8" v-on:submit.prevent>
-    <form-wizard ref="wizard" title="Pics des Pyrénées" subtitle="Nouvelle observation"
-                 step-size="xs" next-button-text="Suivant" back-button-text="Retour"
+    <form-wizard ref="wizard" title="" subtitle="" step-size="xs"
+                 next-button-text="Suivant" back-button-text="Retour"
                  finish-button-text="Terminer" @on-change="handleStepChange"
                  @on-complete="submitForm">
       <tab-content title="Date" :before-change="checkDateNotNull">
