@@ -82,7 +82,7 @@
               </b-switch>
             </div>
             <div class="field">
-              <b-switch  size="is-small" v-model="data.hasConifer">
+              <b-switch  size="is-small" v-model="data.hasConifer" :disabled="coniferSelected">
                 {{ coniferStr }}
               </b-switch>
             </div>
@@ -130,6 +130,7 @@ export default {
   name: 'ContributeForm',
   data () {
     return {
+      coniferSelected: false,
       monthNames: MONTH_NAMES,
       dayNames: DAY_NAMES,
       data: {}
@@ -244,6 +245,9 @@ export default {
       handler (val, oldVal) {
         if (val.dominant === 'Conifères') {
           this.data.hasConifer = true
+          this.coniferSelected = true
+        } else {
+          this.coniferSelected = false
         }
         this.updateContribution()
       },
