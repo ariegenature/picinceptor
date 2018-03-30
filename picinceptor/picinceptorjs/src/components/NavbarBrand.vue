@@ -1,9 +1,9 @@
 <template>
   <div class="navbar-brand">
     <a class="navbar-item" href="/">
-      <img src="https://openclipart.org/image/64px/svg_to_png/235000/Birds-Silhouettes-Woodpecker.png"
+      <img src="static/silhouette-woodpecker.png"
            alt="Logo enquête" height="64">
-      <div style="margin-left: 1rem;">
+      <div style="margin-left: .5rem;">
         <h1 class="title is-5">Pics des Pyrénées</h1>
         <h2 class="subtitle is-7">Étude participative</h2>
       </div>
