@@ -90,6 +90,10 @@
         </div>
       </tab-content>
       <tab-content title="Coordonnées" :before-change="checkContactComplete">
+        <div class="content">
+          <p><span class="is-size-7">Ces informations ne nous sont utiles qu'en cas de question sur
+            votre saisie, et ne sont jamais transmises à qui que ce soit.</span></p>
+        </div>
         <b-field grouped group-multiline>
           <b-field label="Votre prénom" expanded>
             <b-input expanded id="first-name" ref="firstFieldInTab4"
