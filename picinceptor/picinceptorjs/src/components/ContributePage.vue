@@ -23,14 +23,18 @@
   <b-modal id="modal-form" :active.sync="isFormActive">
     <contribute-form @form-complete="closeForm"></contribute-form>
   </b-modal>
+  <b-modal id="modal-help" :active.sync="isHelpShown" :onCancel="toggleHelp" has-modal-card>
+    <help></help>
+  </b-modal>
   </main>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import ContributeForm from './ContributeForm'
 import ContributeMap from './ContributeMap'
 import ContributionTable from './ContributionTable'
+import Help from './Help'
 import Navbar from './Navbar'
 
 export default {
@@ -39,6 +43,7 @@ export default {
     ContributeForm,
     ContributeMap,
     ContributionTable,
+    Help,
     Navbar
   },
   data () {
@@ -46,6 +51,9 @@ export default {
       isFormActive: false
     }
   },
+  computed: mapGetters([
+    'isHelpShown'
+  ]),
   methods: {
     async updateContributions () {
       try {
@@ -69,7 +77,8 @@ export default {
       this.clearClickLatLng()
     },
     ...mapActions([
-      'setContributions'
+      'setContributions',
+      'toggleHelp'
     ]),
     ...mapActions('map', [
       'clearClickLatLng'

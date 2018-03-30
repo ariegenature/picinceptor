@@ -19,6 +19,7 @@ export default new Vuex.Store({
         'Haie',
         'Forêt'
       ],
+      isHelpShown: false,
       nestingIndices: [
         {
           id: 0,
@@ -140,6 +141,7 @@ export default new Vuex.Store({
   getters: {
     contributions: (state) => state.contributions,
     dominantSpecies: (state) => state.dominantSpecies,
+    isHelpShown: (state) => state.isHelpShown,
     habitats: (state) => state.habitats,
     nestingIndices: (state) => state.nestingIndices,
     woodpeckers: (state) => state.woodpeckers
@@ -147,6 +149,9 @@ export default new Vuex.Store({
   mutations: {
     contributions: (state, contribs) => {
       state.contributions = contribs
+    },
+    isHelpShown: (state, bool) => {
+      state.isHelpShown = bool
     }
   },
   actions: {
@@ -161,6 +166,9 @@ export default new Vuex.Store({
         feature.properties.breedingDesc = breedingCode.name
       })
       commit('contributions', contribs)
+    },
+    toggleHelp: ({ commit, state }) => {
+      commit('isHelpShown', !state.isHelpShown)
     }
   },
   modules: {
