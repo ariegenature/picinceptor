@@ -263,3 +263,15 @@ export default {
   }
 }
 </script>
+
+<style>
+@media screen and (max-width: 767px) {
+  #contribute-form .vue-form-wizard .wizard-nav > li,
+  .wizard-progress-with-circle {
+    display: none
+  }
+  #contribute-form .vue-form-wizard .wizard-nav > li.active {
+    display: block
+  }
+}
+</style>
