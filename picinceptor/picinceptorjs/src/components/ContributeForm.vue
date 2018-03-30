@@ -229,6 +229,9 @@ export default {
         data.dominant = null
         data.hasDeadTrees = null
         data.hasConifer = null
+      } else {
+        data.hasDeadTrees = data.hasDeadTrees || false
+        data.hasConifer = data.hasConifer || false
       }
       this.setContribution(data)
     },
