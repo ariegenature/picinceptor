@@ -60,7 +60,7 @@
               <b-icon icon="youtube-play" type="is-dark"></b-icon>
             </a>
             &emsp;
-            <a href="https://ariegenature.fr" target="_blank" title="Facebook ANA">
+            <a href="https://ariegenature.fr" target="_blank" title="Site web ANA">
               <b-icon icon="web" type="is-dark"></b-icon>
             </a>
           </div>
