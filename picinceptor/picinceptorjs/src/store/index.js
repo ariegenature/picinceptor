@@ -162,8 +162,12 @@ export default new Vuex.Store({
         feature.properties.woodpeckerName = woodpecker.name
         feature.properties.woodpeckerImg = woodpecker.img
         feature.properties.color = woodpecker.color
-        var breedingCode = state.nestingIndices.find((code) => code.id === feature.properties.breedingCode)
-        feature.properties.breedingDesc = breedingCode.name
+        if (feature.properties.breedingCode) {
+          var breedingCode = state.nestingIndices.find((code) => code.id === feature.properties.breedingCode)
+          feature.properties.breedingDesc = breedingCode.name
+        } else {
+          feature.properties.breedingDesc = ''
+        }
       })
       commit('contributions', contribs)
     },

@@ -13,7 +13,7 @@
       </b-table-column>
       <b-table-column label="IN">
         <b-tooltip :label="props.row.breedingDesc" type="is-info" position="is-right"
-                   size="is-small" dashed animated multilined>
+                   size="is-small" dashed animated multilined v-if="props.row.breedingCode">
           IN{{ props.row.breedingCode }}
         </b-tooltip>
       </b-table-column>
