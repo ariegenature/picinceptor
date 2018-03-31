@@ -14,8 +14,8 @@
         <div class="column">
           <div class="content">
             <p class="title is-6">Observations récentes</p>
-            <contribution-table></contribution-table>
           </div>
+          <contribution-table></contribution-table>
         </div>
       </div>
     </div>
