@@ -94,6 +94,5 @@ export default {
 <style>
 #contributions {
   height: 75vh;
-  overflow: scroll;
 }
 </style>
