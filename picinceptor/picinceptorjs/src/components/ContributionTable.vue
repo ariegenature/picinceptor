@@ -1,7 +1,7 @@
 <template>
   <b-table id="contributions" :data="data" :bordered="false" :striped="false" :narrowed="true"
            :hoverable="false" :mobile-cards="true" paginated :per-page="10" :current-page.sync="currentPage"
-           pagination-size="is-small">
+           pagination-size="is-small" detailed detail-key="id" :opened-detailed="openedObservations">
     <template slot-scope="props">
       <b-table-column label="id" :visible="false">
         {{ props.row.id }}
@@ -21,15 +21,25 @@
       <b-table-column label="Habitat">
         {{ props.row.habitat }}
       </b-table-column>
-      <b-table-column label="Dominant">
-        {{ props.row.dominantTree }}
-      </b-table-column>
-      <b-table-column label="Arbres morts ?" centered>
-        <b-icon :icon="boolIcon(props.row.hasDeadTrees)"></b-icon>
-      </b-table-column>
-      <b-table-column label="Conifères ?" centered>
-        <b-icon :icon="boolIcon(props.row.hasConifers)"></b-icon>
-      </b-table-column>
+    </template>
+    <template slot="detail" slot-scope="props">
+      <div class="media is-size-7">
+        <div class="media-left">
+          <figure class="image is-64x64">
+            <img :alt="props.row.woodpeckerName" :src="props.row.woodpeckerImg">
+          </figure>
+        </div>
+        <div class="media-content" v-if="hasRowDetails(props.row)">
+          <div class="content">
+            <p><strong>Précisions habitat forestier&nbsp;:</strong>
+            <ul class="is-lowercase">
+              <li>espèce dominante&nbsp;: {{ props.row.dominantTree }}&nbsp;;</li>
+              <li>{{ deadTreesStr(props.row.hasDeadTrees) }}&nbsp;;</li>
+              <li>{{ coniferStr(props.row.hasConifers) }}.</li>
+            </ul></p>
+          </div>
+        </div>
+      </div>
     </template>
   </b-table>
 </template>
@@ -41,7 +51,8 @@ export default {
   name: 'ContributionTable',
   data () {
     return {
-      currentPage: 1
+      currentPage: 1,
+      openedObservations: []
     }
   },
   computed: {
@@ -67,14 +78,14 @@ export default {
         return `${accuracy} ${count}`
       }
     },
-    boolIcon (bool) {
-      if (bool === true) {
-        return 'check'
-      } else if (bool === false) {
-        return 'close'
-      } else {
-        return ''
-      }
+    deadTreesStr (val) {
+      return val ? 'Arbres morts au sol' : "Pas d'arbre mort au sol"
+    },
+    coniferStr (val) {
+      return val ? 'Présence de conifères' : 'Pas de conifère'
+    },
+    hasRowDetails (row) {
+      return row.habitat === 'Forêt'
     }
   }
 }
