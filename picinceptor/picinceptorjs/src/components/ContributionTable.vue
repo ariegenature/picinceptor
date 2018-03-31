@@ -10,6 +10,7 @@
         {{ props.row.observationDate.toLocaleDateString() }}
       </b-table-column>
       <b-table-column label="Espèce">
+        <span :style="{ color: props.row.color }">&bull;</span>
         {{ props.row.woodpeckerName }}
       </b-table-column>
       <b-table-column label="IN">
