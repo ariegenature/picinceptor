@@ -9,7 +9,7 @@ begin;
     id serial primary key,
     observation_date date not null,
     woodpecker int not null references ref.taxon on delete cascade on update cascade,
-    breeding_code int not null references ref.bird_breeding_code on delete cascade on update cascade,
+    breeding_code int references ref.bird_breeding_code on delete cascade on update cascade,
     habitat text not null constraint "habitat name must not be empty" check (habitat != ''),
     dominant_tree text constraint "dominant tree must not be empty" check (dominant_tree != ''),
     has_dead_trees boolean,
