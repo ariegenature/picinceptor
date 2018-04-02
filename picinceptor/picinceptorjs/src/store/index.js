@@ -135,7 +135,8 @@ export default new Vuex.Store({
           img: 'static/pic-a-dos-blanc.png',
           color: '#ee82ee'
         }
-      ]
+      ],
+      selectedFeatureId: null
     }
   },
   getters: {
@@ -144,7 +145,8 @@ export default new Vuex.Store({
     isHelpShown: (state) => state.isHelpShown,
     habitats: (state) => state.habitats,
     nestingIndices: (state) => state.nestingIndices,
-    woodpeckers: (state) => state.woodpeckers
+    woodpeckers: (state) => state.woodpeckers,
+    selectedFeatureId: (state) => state.selectedFeatureId
   },
   mutations: {
     contributions: (state, contribs) => {
@@ -152,6 +154,9 @@ export default new Vuex.Store({
     },
     isHelpShown: (state, bool) => {
       state.isHelpShown = bool
+    },
+    selectedFeatureId: (state, id) => {
+      state.selectedFeatureId = id
     }
   },
   actions: {
@@ -173,6 +178,9 @@ export default new Vuex.Store({
     },
     toggleHelp: ({ commit, state }) => {
       commit('isHelpShown', !state.isHelpShown)
+    },
+    updateSelectedFeatureId: ({ commit }, id) => {
+      commit('selectedFeatureId', id)
     }
   },
   modules: {

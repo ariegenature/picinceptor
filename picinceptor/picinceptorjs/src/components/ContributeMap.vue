@@ -1,6 +1,7 @@
 <template>
   <v-map ref="map" :zoom="zoom" :center="center"
-         @l-draw-created="emitMarkerCreated">
+         @l-draw-created="emitMarkerCreated"
+         @l-popupopen="selectFeature" @l-popupclose="unselectFeature">
     <v-tilelayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                  attribution="OpenStreetMap contributors"></v-tilelayer>
     <v-geojson-layer ref="contribution" :geojson="contributions"
@@ -72,7 +73,8 @@ export default {
       return this.clickLatLng !== null
     },
     ...mapGetters([
-      'contributions'
+      'contributions',
+      'selectedFeatureId'
     ]),
     ...mapGetters('map', [
       'clickLatLng'
@@ -83,9 +85,33 @@ export default {
       this.setClickLatLng(ev.layer._latlng)
       this.$emit('marker-created', ev)
     },
+    selectFeature (ev) {
+      this.$refs.contribution.mapObject.eachLayer((layer) => {
+        if (layer.isPopupOpen()) {
+          this.updateSelectedFeatureId(layer.feature.id)
+        }
+      })
+    },
+    unselectFeature (ev) {
+      this.updateSelectedFeatureId(null)
+    },
+    ...mapActions([
+      'updateSelectedFeatureId'
+    ]),
     ...mapActions('map', [
       'setClickLatLng'
     ])
+  },
+  watch: {
+    selectedFeatureId: {
+      handler (val, oldVal) {
+        this.$refs.contribution.mapObject.eachLayer((layer) => {
+          if (layer.feature.id === this.selectedFeatureId) {
+            layer.openPopup()
+          }
+        })
+      }
+    }
   }
 }
 </script>

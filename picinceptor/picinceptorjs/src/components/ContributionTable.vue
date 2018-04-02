@@ -1,7 +1,8 @@
 <template>
   <b-table id="contributions" :data="data" :bordered="false" :striped="false" :narrowed="true"
-           :hoverable="false" :mobile-cards="true" paginated :per-page="10" :current-page.sync="currentPage"
-           pagination-size="is-small" detailed detail-key="id" :opened-detailed="openedObservations">
+           :hoverable="true" :mobile-cards="true" paginated :per-page="10" :current-page.sync="currentPage"
+           pagination-size="is-small" detailed detail-key="id" :opened-detailed="openedObservations"
+           :selected.sync="selectedFeature" focusable>
     <template slot-scope="props">
       <b-table-column label="id" :visible="false">
         {{ props.row.id }}
@@ -46,14 +47,15 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'ContributionTable',
   data () {
     return {
       currentPage: 1,
-      openedObservations: []
+      openedObservations: [],
+      selectedFeature: null
     }
   },
   computed: {
@@ -68,7 +70,8 @@ export default {
       return res
     },
     ...mapGetters([
-      'contributions'
+      'contributions',
+      'selectedFeatureId'
     ])
   },
   methods: {
@@ -87,6 +90,30 @@ export default {
     },
     hasRowDetails (row) {
       return row.habitat === 'Forêt'
+    },
+    ...mapActions([
+      'updateSelectedFeatureId'
+    ])
+  },
+  watch: {
+    selectedFeature: {
+      handler (val, oldVal) {
+        if (this.selectedFeature === null) {
+          this.updateSelectedFeatureId(null)
+        } else {
+          this.updateSelectedFeatureId(this.selectedFeature.id)
+        }
+      }
+    },
+    selectedFeatureId: {
+      handler (val, oldVal) {
+        if (this.selectedFeatureId === null) {
+          this.selectedFeature = null
+        } else {
+          var selectedFeature = this.data.find((feature) => feature.id === this.selectedFeatureId)
+          this.selectedFeature = selectedFeature
+        }
+      }
     }
   }
 }
