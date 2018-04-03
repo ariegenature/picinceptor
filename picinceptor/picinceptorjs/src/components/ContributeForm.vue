@@ -4,7 +4,7 @@
                  next-button-text="Suivant" back-button-text="Retour"
                  finish-button-text="Terminer" @on-change="handleStepChange"
                  @on-complete="submitForm">
-      <tab-content title="Date" :before-change="checkDateNotNull">
+      <tab-content title="Date" :before-change="checkDateCorrect">
         <div class="columns is-mobile is-centered">
           <div class="column is-narrow has-text-centered">
             <b-field>
@@ -160,8 +160,8 @@ export default {
         this.data.surname !== '' && this.data.surname !== null &&
         this.data.email !== '' && this.data.email !== null)
     },
-    checkDateNotNull () {
-      return this.data.observationDate !== null
+    checkDateCorrect () {
+      return this.data.observationDate !== null && this.data.observationDate <= new Date()
     },
     checkHabitatComplete () {
       if (this.data.habitat === null) {
