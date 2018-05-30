@@ -72,7 +72,11 @@ class ObservationResource(Resource):
         features = res['features']
         for row in rows:
             (obs_id, obs_date, woodpecker_id, breeding_code, habitat, dominant_tree, has_dead_trees,
-             has_conifers, geojson) = row
+             has_conifers, observer_first_name, observer_surname, observer_school, geojson) = row
+            observer_str = '{0} {1}'.format(observer_first_name, observer_surname).strip()
+            observer_str = ('{0} [{1}]'.format(observer_str, observer_school)
+                            if observer_school.strip()
+                            else observer_str).strip()
             features.append({
                 'type': 'Feature',
                 'id': obs_id,
@@ -84,6 +88,7 @@ class ObservationResource(Resource):
                     'dominantTree': dominant_tree,
                     'hasDeadTrees': has_dead_trees,
                     'hasConifers': has_conifers,
+                    'observer': observer_str
                 },
                 'geometry': json.loads(geojson)
             })

@@ -33,6 +33,7 @@
         </div>
         <div class="media-content" v-if="hasRowDetails(props.row)">
           <div class="content">
+            <p><strong>Observateur&nbsp;:</strong> {{ props.row.observer }}</p>
             <p><strong>Précisions habitat forestier&nbsp;:</strong>
             <ul class="is-lowercase">
               <li>espèce dominante&nbsp;: {{ props.row.dominantTree }}&nbsp;;</li>
