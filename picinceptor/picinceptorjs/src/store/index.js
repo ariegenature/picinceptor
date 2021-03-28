@@ -19,6 +19,7 @@ export default new Vuex.Store({
         'Haie',
         'Forêt'
       ],
+      isHelpShown: false,
       nestingIndices: [
         {
           id: 0,
@@ -134,19 +135,28 @@ export default new Vuex.Store({
           img: 'static/pic-a-dos-blanc.png',
           color: '#ee82ee'
         }
-      ]
+      ],
+      selectedFeatureId: null
     }
   },
   getters: {
     contributions: (state) => state.contributions,
     dominantSpecies: (state) => state.dominantSpecies,
+    isHelpShown: (state) => state.isHelpShown,
     habitats: (state) => state.habitats,
     nestingIndices: (state) => state.nestingIndices,
-    woodpeckers: (state) => state.woodpeckers
+    woodpeckers: (state) => state.woodpeckers,
+    selectedFeatureId: (state) => state.selectedFeatureId
   },
   mutations: {
     contributions: (state, contribs) => {
       state.contributions = contribs
+    },
+    isHelpShown: (state, bool) => {
+      state.isHelpShown = bool
+    },
+    selectedFeatureId: (state, id) => {
+      state.selectedFeatureId = id
     }
   },
   actions: {
@@ -157,10 +167,20 @@ export default new Vuex.Store({
         feature.properties.woodpeckerName = woodpecker.name
         feature.properties.woodpeckerImg = woodpecker.img
         feature.properties.color = woodpecker.color
-        var breedingCode = state.nestingIndices.find((code) => code.id === feature.properties.breedingCode)
-        feature.properties.breedingDesc = breedingCode.name
+        if (feature.properties.breedingCode) {
+          var breedingCode = state.nestingIndices.find((code) => code.id === feature.properties.breedingCode)
+          feature.properties.breedingDesc = breedingCode.name
+        } else {
+          feature.properties.breedingDesc = ''
+        }
       })
       commit('contributions', contribs)
+    },
+    toggleHelp: ({ commit, state }) => {
+      commit('isHelpShown', !state.isHelpShown)
+    },
+    updateSelectedFeatureId: ({ commit }, id) => {
+      commit('selectedFeatureId', id)
     }
   },
   modules: {

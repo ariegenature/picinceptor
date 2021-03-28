@@ -1,43 +1,62 @@
 <template>
   <b-table id="contributions" :data="data" :bordered="false" :striped="false" :narrowed="true"
-           :hoverable="false" :mobile-cards="true">
-    <template slot-scope="props">
-      <b-table-column label="id" :visible="false">
-        {{ props.row.id }}
-      </b-table-column>
-      <b-table-column label="Date" numeric>
-        {{ props.row.observationDate.toLocaleDateString() }}
-      </b-table-column>
-      <b-table-column label="Espèce">
-        {{ props.row.woodpeckerName }}
-      </b-table-column>
-      <b-table-column label="IN">
-        <b-tooltip :label="props.row.breedingDesc" type="is-info" position="is-right"
-                   size="is-small" dashed animated multilined>
-          IN{{ props.row.breedingCode }}
-        </b-tooltip>
-      </b-table-column>
-      <b-table-column label="Habitat">
-        {{ props.row.habitat }}
-      </b-table-column>
-      <b-table-column label="Dominant">
-        {{ props.row.dominantTree }}
-      </b-table-column>
-      <b-table-column label="Arbres morts ?" centered>
-        <b-icon :icon="boolIcon(props.row.hasDeadTrees)"></b-icon>
-      </b-table-column>
-      <b-table-column label="Conifères ?" centered>
-        <b-icon :icon="boolIcon(props.row.hasConifers)"></b-icon>
-      </b-table-column>
+           :hoverable="true" :mobile-cards="true" paginated :per-page="10" :current-page.sync="currentPage"
+           pagination-size="is-small" detailed detail-key="id" :opened-detailed="openedObservations"
+           :selected.sync="selectedFeature" focusable>
+    <b-table-column label="id" :visible="false" v-slot="props">
+      {{ props.row.id }}
+    </b-table-column>
+    <b-table-column label="Date" numeric v-slot="props">
+      {{ props.row.observationDate.toLocaleDateString() }}
+    </b-table-column>
+    <b-table-column label="Espèce" v-slot="props">
+      <span :style="{ color: props.row.color }">&bull;</span>
+      {{ props.row.woodpeckerName }}
+    </b-table-column>
+    <b-table-column label="IN" v-slot="props">
+      <b-tooltip :label="props.row.breedingDesc" type="is-info" position="is-left"
+                 size="is-small" dashed animated multilined v-if="props.row.breedingCode !== null">
+        IN{{ props.row.breedingCode }}
+      </b-tooltip>
+    </b-table-column>
+    <b-table-column label="Habitat" v-slot="props">
+      {{ props.row.habitat }}
+    </b-table-column>
+    <template slot="detail" slot-scope="props">
+      <div class="media is-size-7">
+        <div class="media-left">
+          <figure class="image is-64x64">
+            <img :alt="props.row.woodpeckerName" :src="props.row.woodpeckerImg">
+          </figure>
+        </div>
+        <div class="media-content" v-if="hasRowDetails(props.row)">
+          <div class="content">
+            <p><strong>Observateur&nbsp;:</strong> {{ props.row.observer }}</p>
+            <p><strong>Précisions habitat forestier&nbsp;:</strong>
+            <ul class="is-lowercase">
+              <li>espèce dominante&nbsp;: {{ props.row.dominantTree }}&nbsp;;</li>
+              <li>{{ deadTreesStr(props.row.hasDeadTrees) }}&nbsp;;</li>
+              <li>{{ coniferStr(props.row.hasConifers) }}.</li>
+            </ul></p>
+          </div>
+        </div>
+      </div>
     </template>
   </b-table>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'ContributionTable',
+  data () {
+    return {
+      currentPage: 1,
+      openedObservations: [],
+      selectedFeature: null
+    }
+  },
   computed: {
     data () {
       if (!this.contributions || !this.contributions.features) {
@@ -50,7 +69,8 @@ export default {
       return res
     },
     ...mapGetters([
-      'contributions'
+      'contributions',
+      'selectedFeatureId'
     ])
   },
   methods: {
@@ -61,13 +81,37 @@ export default {
         return `${accuracy} ${count}`
       }
     },
-    boolIcon (bool) {
-      if (bool === true) {
-        return 'check'
-      } else if (bool === false) {
-        return 'close'
-      } else {
-        return ''
+    deadTreesStr (val) {
+      return val ? 'Arbres morts au sol' : "Pas d'arbre mort au sol"
+    },
+    coniferStr (val) {
+      return val ? 'Présence de conifères' : 'Pas de conifère'
+    },
+    hasRowDetails (row) {
+      return row.habitat === 'Forêt'
+    },
+    ...mapActions([
+      'updateSelectedFeatureId'
+    ])
+  },
+  watch: {
+    selectedFeature: {
+      handler (val, oldVal) {
+        if (this.selectedFeature === null) {
+          this.updateSelectedFeatureId(null)
+        } else {
+          this.updateSelectedFeatureId(this.selectedFeature.id)
+        }
+      }
+    },
+    selectedFeatureId: {
+      handler (val, oldVal) {
+        if (this.selectedFeatureId === null) {
+          this.selectedFeature = null
+        } else {
+          var selectedFeature = this.data.find((feature) => feature.id === this.selectedFeatureId)
+          this.selectedFeature = selectedFeature
+        }
       }
     }
   }
@@ -76,7 +120,6 @@ export default {
 
 <style>
 #contributions {
-  height: 70vh;
-  overflow: scroll;
+  height: 75vh;
 }
 </style>

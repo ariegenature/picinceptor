@@ -7,7 +7,7 @@ import logging
 from flask import Flask
 from konfig import Config
 from six import PY2, integer_types
-from werkzeug.contrib.fixers import ProxyFix
+from werkzeug.middleware.proxy_fix import ProxyFix
 from xdg import XDG_CONFIG_HOME
 
 from picinceptor.extensions import rest_api

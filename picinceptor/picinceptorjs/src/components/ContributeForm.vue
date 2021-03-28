@@ -1,10 +1,10 @@
 <template>
   <form id="contribute-form" method="POST" accept-charset="UTF-8" v-on:submit.prevent>
-    <form-wizard ref="wizard" title="Pics des Pyrénées" subtitle="Nouvelle observation"
-                 step-size="xs" next-button-text="Suivant" back-button-text="Retour"
+    <form-wizard ref="wizard" title="" subtitle="" step-size="xs"
+                 next-button-text="Suivant" back-button-text="Retour"
                  finish-button-text="Terminer" @on-change="handleStepChange"
                  @on-complete="submitForm">
-      <tab-content title="Date" :before-change="checkDateNotNull">
+      <tab-content title="Date" :before-change="checkDateCorrect">
         <div class="columns is-mobile is-centered">
           <div class="column is-narrow has-text-centered">
             <b-field>
@@ -82,7 +82,7 @@
               </b-switch>
             </div>
             <div class="field">
-              <b-switch  size="is-small" v-model="data.hasConifer">
+              <b-switch  size="is-small" v-model="data.hasConifer" :disabled="coniferSelected">
                 {{ coniferStr }}
               </b-switch>
             </div>
@@ -90,6 +90,10 @@
         </div>
       </tab-content>
       <tab-content title="Coordonnées" :before-change="checkContactComplete">
+        <div class="content">
+          <p><span class="is-size-7">Ces informations ne nous sont utiles qu'en cas de question sur
+            votre saisie, et ne sont jamais transmises à qui que ce soit.</span></p>
+        </div>
         <b-field grouped group-multiline>
           <b-field label="Votre prénom" expanded>
             <b-input expanded id="first-name" ref="firstFieldInTab4"
@@ -126,6 +130,7 @@ export default {
   name: 'ContributeForm',
   data () {
     return {
+      coniferSelected: false,
       monthNames: MONTH_NAMES,
       dayNames: DAY_NAMES,
       data: {}
@@ -155,8 +160,8 @@ export default {
         this.data.surname !== '' && this.data.surname !== null &&
         this.data.email !== '' && this.data.email !== null)
     },
-    checkDateNotNull () {
-      return this.data.observationDate !== null
+    checkDateCorrect () {
+      return this.data.observationDate !== null && this.data.observationDate <= new Date()
     },
     checkHabitatComplete () {
       if (this.data.habitat === null) {
@@ -202,14 +207,14 @@ export default {
     async submitForm () {
       try {
         await this.$post('api/observation', Object.assign({}, this.contribution, { eWkt: this.eWkt }))
-        this.$toast.open({
+        this.$buefy.toast.open({
           duration: 5000,
           message: 'Votre observation a bien été enregistrée. Merci !',
           type: 'is-success'
         })
       } catch (e) {
         console.log(e)
-        this.$toast.open({
+        this.$buefy.toast.open({
           duration: 5000,
           message: "Une erreur s'est produite. Veuillez contacter un administrateur.",
           type: 'is-danger'
@@ -225,6 +230,9 @@ export default {
         data.dominant = null
         data.hasDeadTrees = null
         data.hasConifer = null
+      } else {
+        data.hasDeadTrees = data.hasDeadTrees || false
+        data.hasConifer = data.hasConifer || false
       }
       this.setContribution(data)
     },
@@ -237,6 +245,9 @@ export default {
       handler (val, oldVal) {
         if (val.dominant === 'Conifères') {
           this.data.hasConifer = true
+          this.coniferSelected = true
+        } else {
+          this.coniferSelected = false
         }
         this.updateContribution()
       },
@@ -263,3 +274,15 @@ export default {
   }
 }
 </script>
+
+<style>
+@media screen and (max-width: 767px) {
+  #contribute-form .vue-form-wizard .wizard-nav > li,
+  .wizard-progress-with-circle {
+    display: none
+  }
+  #contribute-form .vue-form-wizard .wizard-nav > li.active {
+    display: block
+  }
+}
+</style>

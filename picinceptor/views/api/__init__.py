@@ -53,10 +53,10 @@ class ObservationResource(Resource):
                                       required=True, nullable=False, help='Observation coordinates')
 
     def get(self):
-        query = anosql.load_queries(
-                'postgres',
-                os.path.join(os.path.dirname(picinceptor.__file__), 'database',
-                             'select_observations.sql')
+        query = anosql.from_path(
+            os.path.join(os.path.dirname(picinceptor.__file__), 'database',
+                         'select_observations.sql'),
+            'psycopg2'
         ).get_observations
         with psycopg2.connect(host=current_app.config['DB_HOST'],
                               port=current_app.config.get('DB_PORT', 5432),
@@ -72,7 +72,11 @@ class ObservationResource(Resource):
         features = res['features']
         for row in rows:
             (obs_id, obs_date, woodpecker_id, breeding_code, habitat, dominant_tree, has_dead_trees,
-             has_conifers, geojson) = row
+             has_conifers, observer_first_name, observer_surname, observer_school, geojson) = row
+            observer_str = '{0} {1}'.format(observer_first_name, observer_surname).strip()
+            observer_str = ('{0} [{1}]'.format(observer_str, observer_school)
+                            if observer_school.strip()
+                            else observer_str).strip()
             features.append({
                 'type': 'Feature',
                 'id': obs_id,
@@ -84,6 +88,7 @@ class ObservationResource(Resource):
                     'dominantTree': dominant_tree,
                     'hasDeadTrees': has_dead_trees,
                     'hasConifers': has_conifers,
+                    'observer': observer_str
                 },
                 'geometry': json.loads(geojson)
             })
@@ -91,11 +96,11 @@ class ObservationResource(Resource):
 
     def post(self):
         observation_dict = self.post_parser.parse_args(strict=True)
-        insert_query = anosql.load_queries(
-            'postgres',
+        insert_query = anosql.from_path(
             os.path.join(os.path.dirname(picinceptor.__file__), 'database',
-                         'insert_observation.sql')
-        ).insert_observation_auto
+                         'insert_observation.sql'),
+            'psycopg2'
+        ).insert_observation
         with psycopg2.connect(host=current_app.config['DB_HOST'],
                               port=current_app.config.get('DB_PORT', 5432),
                               user=current_app.config['DB_USER'],
