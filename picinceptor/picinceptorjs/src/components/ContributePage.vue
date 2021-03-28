@@ -61,7 +61,7 @@ export default {
         this.setContributions(response.data)
       } catch (e) {
         console.log(e)
-        this.$toast.open({
+        this.$buefy.toast.open({
           duration: 5000,
           message: "Une erreur s'est produite. Veuillez contacter un administrateur.",
           type: 'is-danger'

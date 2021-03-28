@@ -207,14 +207,14 @@ export default {
     async submitForm () {
       try {
         await this.$post('api/observation', Object.assign({}, this.contribution, { eWkt: this.eWkt }))
-        this.$toast.open({
+        this.$buefy.toast.open({
           duration: 5000,
           message: 'Votre observation a bien été enregistrée. Merci !',
           type: 'is-success'
         })
       } catch (e) {
         console.log(e)
-        this.$toast.open({
+        this.$buefy.toast.open({
           duration: 5000,
           message: "Une erreur s'est produite. Veuillez contacter un administrateur.",
           type: 'is-danger'
