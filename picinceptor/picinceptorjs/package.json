@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "buefy": "^0.6.5",
     "leaflet-draw": "^1.0.2",
     "vue": "^2.5.16",
     "vue-form-wizard": "^0.8.4",
@@ -37,6 +36,7 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.3.2",
     "babel-preset-stage-2": "^6.22.0",
+    "buefy": "^0.9.4",
     "chalk": "^2.3.2",
     "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.28.11",
