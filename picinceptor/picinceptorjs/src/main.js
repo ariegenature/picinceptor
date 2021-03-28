@@ -9,7 +9,7 @@ import VueApi from './plugins/api'
 import VueFormWizard from 'vue-form-wizard'
 import router from './router'
 import store from './store'
-import 'buefy/lib/buefy.css'
+import 'buefy/dist/buefy.css'
 import 'vue-form-wizard/dist/vue-form-wizard.min.css'
 
 Vue.config.productionTip = false
