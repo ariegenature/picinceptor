@@ -3,27 +3,25 @@
            :hoverable="true" :mobile-cards="true" paginated :per-page="10" :current-page.sync="currentPage"
            pagination-size="is-small" detailed detail-key="id" :opened-detailed="openedObservations"
            :selected.sync="selectedFeature" focusable>
-    <template slot-scope="props">
-      <b-table-column label="id" :visible="false">
-        {{ props.row.id }}
-      </b-table-column>
-      <b-table-column label="Date" numeric>
-        {{ props.row.observationDate.toLocaleDateString() }}
-      </b-table-column>
-      <b-table-column label="Espèce">
-        <span :style="{ color: props.row.color }">&bull;</span>
-        {{ props.row.woodpeckerName }}
-      </b-table-column>
-      <b-table-column label="IN">
-        <b-tooltip :label="props.row.breedingDesc" type="is-info" position="is-left"
-                   size="is-small" dashed animated multilined v-if="props.row.breedingCode !== null">
-          IN{{ props.row.breedingCode }}
-        </b-tooltip>
-      </b-table-column>
-      <b-table-column label="Habitat">
-        {{ props.row.habitat }}
-      </b-table-column>
-    </template>
+    <b-table-column label="id" :visible="false" v-slot="props">
+      {{ props.row.id }}
+    </b-table-column>
+    <b-table-column label="Date" numeric v-slot="props">
+      {{ props.row.observationDate.toLocaleDateString() }}
+    </b-table-column>
+    <b-table-column label="Espèce" v-slot="props">
+      <span :style="{ color: props.row.color }">&bull;</span>
+      {{ props.row.woodpeckerName }}
+    </b-table-column>
+    <b-table-column label="IN" v-slot="props">
+      <b-tooltip :label="props.row.breedingDesc" type="is-info" position="is-left"
+                 size="is-small" dashed animated multilined v-if="props.row.breedingCode !== null">
+        IN{{ props.row.breedingCode }}
+      </b-tooltip>
+    </b-table-column>
+    <b-table-column label="Habitat" v-slot="props">
+      {{ props.row.habitat }}
+    </b-table-column>
     <template slot="detail" slot-scope="props">
       <div class="media is-size-7">
         <div class="media-left">
