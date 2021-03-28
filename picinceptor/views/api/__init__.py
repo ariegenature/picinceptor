@@ -53,10 +53,10 @@ class ObservationResource(Resource):
                                       required=True, nullable=False, help='Observation coordinates')
 
     def get(self):
-        query = anosql.load_queries(
-                'postgres',
-                os.path.join(os.path.dirname(picinceptor.__file__), 'database',
-                             'select_observations.sql')
+        query = anosql.from_path(
+            os.path.join(os.path.dirname(picinceptor.__file__), 'database',
+                         'select_observations.sql'),
+            'psycopg2'
         ).get_observations
         with psycopg2.connect(host=current_app.config['DB_HOST'],
                               port=current_app.config.get('DB_PORT', 5432),
@@ -96,10 +96,10 @@ class ObservationResource(Resource):
 
     def post(self):
         observation_dict = self.post_parser.parse_args(strict=True)
-        insert_query = anosql.load_queries(
-            'postgres',
+        insert_query = anosql.from_path(
             os.path.join(os.path.dirname(picinceptor.__file__), 'database',
-                         'insert_observation.sql')
+                         'insert_observation.sql'),
+            'psycopg2'
         ).insert_observation_auto
         with psycopg2.connect(host=current_app.config['DB_HOST'],
                               port=current_app.config.get('DB_PORT', 5432),
