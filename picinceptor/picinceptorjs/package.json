@@ -13,7 +13,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "leaflet-draw": "^1.0.2",
     "vue": "^2.5.16",
     "vue-form-wizard": "^0.8.4",
